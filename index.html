@@ -403,7 +403,7 @@
         <section id="overview">
             <h2>Research Overview</h2>
             <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem;">
-                Advanced coastal monitoring analytics combining UAV photogrammetry, wave forcing analysis, and machine learning-based behavioral classification to understand cross-shore vulnerability gradients and rock armour impacts on sandy beach evolution.
+                CoastWatch Victoria provides advanced data analytics for the Victorian Coastal Monitoring Program (VCMP), demonstrating coastal change patterns through integration of UAV photogrammetry, wave forcing analysis, and behavioral classification methods. This platform showcases proof-of-concept analysis for Port Fairy Bay, with methodology designed for statewide scalability across all VCMP monitoring sites.
             </p>
             
             <div class="stats-grid">
@@ -486,27 +486,28 @@
         <section id="analytics">
             <h2>Data Analytics Dashboard</h2>
             
-            <h3>Mean Elevation Change Time Series</h3>
+            <h3>Figure 1: Mean Elevation Change Time Series</h3>
             <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Beach-wide average elevation change between consecutive surveys, showing temporal patterns of erosion and accretion.
+                Individual and cumulative beach elevation change showing temporal erosion/accretion patterns (2018-2025).
             </p>
             <div class="chart-container">
-                <canvas id="timeSeriesChart"></canvas>
+                <canvas id="mecTimeSeriesChart"></canvas>
             </div>
             
-            <div class="analysis-grid">
-                <div class="analysis-card">
-                    <h4>Spatial Distribution</h4>
-                    <div style="height: 300px;">
-                        <canvas id="spatialChart"></canvas>
-                    </div>
-                </div>
-                <div class="analysis-card">
-                    <h4>Cross-shore Zone Comparison</h4>
-                    <div style="height: 300px;">
-                        <canvas id="crossShoreChart"></canvas>
-                    </div>
-                </div>
+            <h3>Figure 2: Alongshore Behavioral Pattern</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                Total elevation change across 220 transects showing spatial distribution of erosion and accretion.
+            </p>
+            <div class="chart-container">
+                <canvas id="behavioralChart"></canvas>
+            </div>
+            
+            <h3>Figure 3: Cross-shore Zone Comparison</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                Average elevation change by cross-shore zone demonstrating depth-dependent coastal response.
+            </p>
+            <div class="chart-container" style="height: 350px;">
+                <canvas id="crossShoreChart"></canvas>
             </div>
         </section>
         
@@ -519,16 +520,24 @@
                 <strong>Record Period:</strong> September 2018 - Present | 111,991 observations
             </div>
             
-            <h3>Wave Height vs Beach Change</h3>
+            <h3>Figure 4: Wave Height Time Series</h3>
             <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Correlation between maximum wave height during survey periods and mean elevation change demonstrates primary wave control on coastal morphodynamics.
+                Temporal variation in wave heights showing 99th percentile, maximum, and mean conditions during survey periods.
             </p>
             <div class="chart-container">
-                <canvas id="waveChart"></canvas>
+                <canvas id="waveHeightChart"></canvas>
+            </div>
+            
+            <h3>Figure 5: Wave Height vs Beach Change</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                Correlation between 99th percentile wave height and mean elevation change (r = 0.61, p < 0.001).
+            </p>
+            <div class="chart-container">
+                <canvas id="waveCorrelationChart"></canvas>
             </div>
             
             <div class="info-box">
-                <p><strong>Statistical Significance:</strong> Pearson correlation r = 0.61 (p < 0.001) indicates strong negative relationship between wave height and beach elevation. Higher waves consistently drive erosion, while lower wave periods allow beach recovery through accretion.</p>
+                <p><strong>Statistical Significance:</strong> Strong negative correlation (r = 0.61, p < 0.001) demonstrates wave height as primary control on beach morphodynamics. Higher waves drive erosion, while lower wave periods enable beach recovery through accretion.</p>
             </div>
         </section>
         
@@ -589,25 +598,35 @@
         </section>
         
         <section id="publication">
-            <h2>Publication</h2>
+            <h2>About This Platform</h2>
             
             <div class="info-box" style="border-left-color: var(--secondary);">
-                <h3 style="color: var(--text-primary); margin-top: 0;">Journal Article</h3>
-                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Title:</strong> Cross-shore vulnerability gradients and rock armour impacts on sandy beach evolution</p>
-                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Authors:</strong> Siegmund Nuyts, et al.</p>
-                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Journal:</strong> Coastal Engineering (In Review)</p>
-                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Study Period:</strong> 2018-2025 (54 drone surveys)</p>
-                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Location:</strong> Port Fairy Bay, Victoria, Australia (38°22'S, 142°14'E)</p>
+                <h3 style="color: var(--text-primary); margin-top: 0;">Victorian Coastal Monitoring Program</h3>
+                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Program:</strong> Victorian Coastal Monitoring Program (VCMP)</p>
+                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Current Site:</strong> Port Fairy Bay, Victoria, Australia (38°22'S, 142°14'E)</p>
+                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Study Period:</strong> 2018-2025 (54 drone surveys over 7 years)</p>
+                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Data Collection:</strong> UAV photogrammetry with wave buoy integration</p>
+                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Organizations:</strong> Bush Heritage Australia & Deakin University</p>
             </div>
             
-            <h3>Abstract</h3>
+            <h3>Platform Overview</h3>
             <p style="color: var(--text-secondary); line-height: 1.8;">
-                This study investigates coastal vulnerability patterns and the influence of rock armour structures on sandy beach morphodynamics using seven years of UAV-derived topographic data integrated with offshore wave measurements from Port Fairy Bay, Australia. Analysis of 54 drone surveys reveals strong correlations between wave forcing and beach elevation change, with maximum wave height (r = 0.61, p < 0.001) showing significant control on erosion/accretion patterns. The research demonstrates elevation-dependent vulnerability gradients across the beach profile and identifies persistent behavioral regimes associated with coastal protection structures. Results indicate that rock armour creates localized erosional zones with 67% behavioral persistence, compared to 23% in natural beach sections. The methodology combines Mean Elevation Change (MEC) analysis with Beachface Cluster Dynamics (BCD) classification using Jenks natural breaks to characterize morphological states and transitions. Wave direction analysis reveals orientation-dependent responses, with transects aligned perpendicular to dominant swell directions experiencing greatest variability. Cross-shore zonation analysis shows distinct responses in offshore, mid-beach, and onshore zones, with intertidal regions demonstrating highest sensitivity to wave forcing. This work contributes to understanding climate change impacts on sandy coastlines and provides evidence-based insights for coastal management and adaptation strategies in embayed systems globally.
+                CoastWatch Victoria demonstrates an integrated approach to coastal monitoring data analytics, combining high-resolution UAV-derived topographic surveys with offshore wave measurements. The platform analyzes mean elevation change (MEC), behavioral classification using Jenks natural breaks, and cross-shore zonation to understand coastal vulnerability patterns. Wave-morphology correlation analysis reveals wave height as the primary control on beach change (r = 0.61, p < 0.001), with distinct responses across offshore, mid-beach, and onshore zones. This methodology framework is designed for scalable deployment across all Victorian Coastal Monitoring Program sites, enabling statewide assessment of coastal change patterns and climate adaptation planning.
             </p>
             
-            <h3>Research Impact</h3>
+            <h3>Methodology Highlights</h3>
+            <ul class="method-list">
+                <li><strong>UAV Photogrammetry:</strong> DJI Phantom 4 RTK surveys processed with Structure-from-Motion techniques</li>
+                <li><strong>Temporal Analysis:</strong> Mean Elevation Change (MEC) calculated between 54 consecutive survey periods</li>
+                <li><strong>Behavioral Classification:</strong> Jenks natural breaks algorithm applied to morphological state transitions</li>
+                <li><strong>Cross-shore Zonation:</strong> Beach profiles divided into offshore, mid-beach, and onshore zones</li>
+                <li><strong>Wave Integration:</strong> Correlation analysis with offshore Sofar Spotter buoy data (111,991 observations)</li>
+                <li><strong>Statistical Validation:</strong> Pearson correlation coefficients and significance testing for wave-morphology relationships</li>
+            </ul>
+            
+            <h3>Future Development</h3>
             <p style="color: var(--text-secondary); line-height: 1.8;">
-                This research provides quantitative evidence for coastal management decision-making, demonstrating the complex interactions between natural processes and engineering interventions. The integrated monitoring approach and analytical framework are scalable to other Victorian Coastal Monitoring Program (VCMP) sites, enabling statewide coastal vulnerability assessment.
+                This platform serves as a proof-of-concept for statewide VCMP data analytics. Future expansion will include additional monitoring sites across Victoria, automated data pipelines for real-time updates, predictive modeling integration, and comparative site analysis tools to support evidence-based coastal management decision-making.
             </p>
         </section>
     </div>
