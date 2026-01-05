@@ -145,6 +145,22 @@ function loadSiteContent(site) {
     const html = `
         <section>
             <h2>${site.name} | Coastal Change Analysis</h2>
+            
+            <h3>Site Overview</h3>
+            <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem;">
+                Port Fairy Bay represents a critical case study in understanding how sandy beaches respond to climate-driven pressures and coastal engineering interventions. Seven years of high-resolution monitoring (2018–2025) reveal complex patterns of vulnerability that vary across the beach profile, with important implications for coastal management under accelerating sea level rise.
+            </p>
+            
+            <div class="info-box">
+                <p style="margin-bottom: 1rem;"><strong>Cross-Shore Vulnerability Gradient:</strong> Our analysis identifies distinct behavioral zones across the beach profile. Supratidal areas (above 0.47 m AHD) experience persistent erosion strongly driven by extreme wave conditions, while lower intertidal zones remain more stable. This elevation-dependent vulnerability means that different parts of the beach face different levels of climate risk.</p>
+                
+                <p style="margin-bottom: 1rem;"><strong>Wave Forcing Thresholds:</strong> Statistical analysis reveals that wave heights exceeding 4.6 m mark a critical threshold—below this, beaches tend to accrete; above it, erosion dominates. When extreme waves persist for more than 30 hours, upper beach elevations can drop by over 40 cm in a single event. Understanding these thresholds enables early warning and proactive response.</p>
+                
+                <p style="margin-bottom: 1rem;"><strong>Impacts of Rock Armour:</strong> Coastal protection structures at Port Fairy demonstrate how hard engineering can disrupt natural sediment transport. Rock armour creates zones of persistent erosion extending up to 200 m along the coast and shifts sand from upper to lower beach areas. Under projected sea level rise, these effects will intensify as structures prevent beaches from naturally retreating landward—a phenomenon known as "coastal squeeze."</p>
+                
+                <p><strong>Management Implications:</strong> The quantitative vulnerability framework developed here provides coastal managers with evidence-based thresholds for intervention timing, spatial prioritization of limited resources, and evaluation of engineering alternatives. This approach is transferable to data-limited coastlines globally seeking sustainable management strategies under climate change.</p>
+            </div>
+            
             <div class="stats-grid">
                 <div class="stat-card">
                     <p class="label">Monitoring Period</p>
@@ -172,12 +188,12 @@ function loadSiteContent(site) {
         <section>
             <h2>Interactive Spatial Analysis</h2>
             <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Explore transect locations and elevation changes. Click markers for detailed information.
+                Explore transect locations and elevation changes across the study area. Click markers for detailed information on local change patterns.
             </p>
             <div id="map"></div>
             
             <div class="legend">
-                <h4 style="color: #00d4ff; margin-bottom: 0.8rem;">Elevation Change Classification</h4>
+                <h4 style="color: #00d4ff; margin-bottom: 0.8rem;">Elevation Change Classification (2018-2025)</h4>
                 <div class="legend-item">
                     <div class="legend-color" style="background: #10b981;"></div>
                     <span>High Accretion (> +0.5 m)</span>
@@ -206,7 +222,7 @@ function loadSiteContent(site) {
             
             <h3>Seven Years of Coastal Evolution</h3>
             <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Individual and cumulative beach elevation change showing temporal erosion and accretion patterns.
+                Individual and cumulative beach elevation change showing temporal erosion and accretion patterns from 54 drone surveys.
             </p>
             <div class="chart-container">
                 <canvas id="mecTimeSeriesChart"></canvas>
@@ -214,7 +230,7 @@ function loadSiteContent(site) {
             
             <h3>Where Change Happens Along the Coast</h3>
             <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Spatial distribution showing which areas are eroding, accreting, or remaining stable.
+                Spatial distribution showing which transects are eroding, accreting, or remaining stable across the 5.8 km study area.
             </p>
             <div class="chart-container">
                 <canvas id="behavioralChart"></canvas>
@@ -232,15 +248,36 @@ function loadSiteContent(site) {
             
             <h3>Wave Conditions Drive Beach Change</h3>
             <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Wave height directly controls whether beaches erode or build up.
+                Offshore wave heights directly control erosion and accretion patterns. The critical threshold of 4.6 m marks the transition point between beach building and erosion.
             </p>
             <div class="chart-container">
                 <canvas id="waveHeightChart"></canvas>
             </div>
             
             <div class="info-box">
-                <p><strong>The Connection:</strong> Statistical analysis shows a strong relationship (r = 0.61, p < 0.001) between wave height and beach change. Higher waves cause erosion, while calmer periods allow beach recovery.</p>
+                <p><strong>Statistical Significance:</strong> Analysis reveals strong negative correlation between wave height and beach elevation (supratidal: r = -0.714, p < 0.001; intertidal: r = -0.301, p = 0.038). When wave heights exceed 4.6 m for more than 30 hours, upper beach areas experience erosion exceeding 40 cm. These thresholds provide quantitative triggers for coastal hazard response.</p>
             </div>
+        </section>
+        
+        <section>
+            <h2>Scientific Studies</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                Research publications based on Port Fairy Bay monitoring data.
+            </p>
+            
+            <div style="background: var(--darker-bg); border: 1px solid var(--border); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <h3 style="color: var(--primary); font-size: 1.2rem; margin-top: 0;">Cross-shore vulnerability gradients and rock armour impacts on sandy beach evolution</h3>
+                <p style="color: var(--text-secondary); margin: 0.5rem 0;"><strong>Authors:</strong> Siegmund Nuyts, et al.</p>
+                <p style="color: var(--text-secondary); margin: 0.5rem 0;"><strong>Journal:</strong> Coastal Engineering (In Review, 2025)</p>
+                <p style="color: var(--text-secondary); margin: 0.5rem 0;"><strong>Study Period:</strong> 2018-2025 (54 UAV surveys)</p>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-top: 1rem;">
+                    This study quantifies elevation-specific vulnerability patterns across seven years of high-resolution monitoring, revealing how supratidal zones face greater erosion risk than intertidal areas. We identify a 4.6 m wave height threshold that controls erosion/accretion transitions and demonstrate how rock armour structures create persistent downdrift erosion zones extending up to 200 m. The research provides transferable quantitative frameworks for early warning systems and evidence-based coastal management under climate change.
+                </p>
+            </div>
+            
+            <p style="color: var(--text-secondary); font-style: italic;">
+                Additional publications will be listed here as research continues at Port Fairy and other VCMP monitoring sites.
+            </p>
         </section>
     `;
     
@@ -252,6 +289,7 @@ function loadSiteContent(site) {
         createAllCharts();
     }, 100);
 }
+
 
 // Initialize detail map
 function initDetailMap() {
