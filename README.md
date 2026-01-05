@@ -27,5 +27,5 @@ This website is created for research and educational purposes. The code is avail
 
 For questions about the research or website:
 - Email: siegmund.nuyts@unimelb.edu.au
-- GitHub: [Create an issue](https://github.com/YOUR-USERNAME/port-fairy-coastal-analysis/issues)
+- GitHub: [Create an issue](https://github.com/NuytsSiegmund/CoastWatch-VIC/issues)
 
