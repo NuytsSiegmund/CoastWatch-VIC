@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port Fairy Coastal Change Analysis</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f4f4f4;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #2a5298;
+        }
+        
+        section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        h2 {
+            color: #1e3c72;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid #2a5298;
+            padding-bottom: 0.5rem;
+        }
+        
+        h3 {
+            color: #2a5298;
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        #map {
+            height: 600px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card h3 {
+            color: white;
+            font-size: 2rem;
+            margin: 0.5rem 0;
+        }
+        
+        .stat-card p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 2rem 0;
+        }
+        
+        .legend {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 20px;
+            border-radius: 3px;
+        }
+        
+        .publication-info {
+            background: #e8f4f8;
+            padding: 1.5rem;
+            border-left: 4px solid #2a5298;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        .github-link {
+            display: inline-block;
+            background: #24292e;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .github-link:hover {
+            background: #444d56;
+        }
+        
+        footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .methodology-list {
+            list-style-position: inside;
+            padding-left: 1rem;
+        }
+        
+        .methodology-list li {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Port Fairy Coastal Change Analysis</h1>
+            <p>Cross-shore Vulnerability Gradients and Rock Armour Impacts on Sandy Beach Evolution</p>
+            <p>7 Years of UAV Monitoring (2018-2025) | 54 Survey Campaigns</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#map-section">Interactive Map</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#methodology">Methodology</a></li>
+                <li><a href="#publication">Publication</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <section id="overview">
+            <h2>Research Overview</h2>
+            <p>This study examines coastal vulnerability and morphological change at Port Fairy Bay, Victoria, Australia, using 7 years of high-resolution UAV-derived topographic data. Through analysis of 54 drone surveys spanning 2018-2025, we investigate how wave conditions and coastal structures influence beach evolution patterns.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p>Survey Period</p>
+                    <h3>7 Years</h3>
+                    <p>2018-2025</p>
+                </div>
+                <div class="stat-card">
+                    <p>Survey Campaigns</p>
+                    <h3>54</h3>
+                    <p>Drone Surveys</p>
+                </div>
+                <div class="stat-card">
+                    <p>Study Area</p>
+                    <h3>5.8 km</h3>
+                    <p>Coastal Extent</p>
+                </div>
+                <div class="stat-card">
+                    <p>Data Points</p>
+                    <h3>40,000+</h3>
+                    <p>Elevation Measurements</p>
+                </div>
+            </div>
+            
+            <h3>Key Findings</h3>
+            <ul class="methodology-list">
+                <li>Strong correlation between maximum wave height and mean elevation change (r = 0.61, p < 0.001)</li>
+                <li>Wave direction influences erosion/accretion patterns based on transect orientation</li>
+                <li>Rock armour structures create persistent erosional zones with distinct behavioral patterns</li>
+                <li>Cross-shore vulnerability gradients show elevation-dependent response to wave forcing</li>
+                <li>Subtidal and intertidal zones exhibit different morphological responses to wave conditions</li>
+            </ul>
+        </section>
+        
+        <section id="map-section">
+            <h2>Interactive Map</h2>
+            <p>Explore the Port Fairy Bay study area, transect locations, and spatial patterns of coastal change.</p>
+            <div id="map"></div>
+            
+            <div class="legend">
+                <h4>Legend</h4>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #d73027;"></div>
+                    <span>High Erosion (> 0.2m loss)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fee08b;"></div>
+                    <span>Moderate Change (± 0.2m)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #1a9850;"></div>
+                    <span>High Accretion (> 0.2m gain)</span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="results">
+            <h2>Results & Visualizations</h2>
+            
+            <h3>Beach Elevation Change Time Series</h3>
+            <p>Mean elevation change across all transects over the 7-year monitoring period.</p>
+            <div class="chart-container">
+                <canvas id="timeSeriesChart"></canvas>
+            </div>
+            
+            <h3>Spatial Distribution of Coastal Change</h3>
+            <div class="chart-container">
+                <canvas id="spatialChart"></canvas>
+            </div>
+            
+            <h3>Wave-Morphology Correlation</h3>
+            <p>Relationship between wave conditions and beach elevation change demonstrates the primary control of wave height on coastal erosion.</p>
+            <div class="chart-container">
+                <canvas id="waveChart"></canvas>
+            </div>
+        </section>
+        
+        <section id="methodology">
+            <h2>Methodology</h2>
+            
+            <h3>Data Collection</h3>
+            <p>Beach topography was surveyed using UAV photogrammetry at regular intervals from March 2018 to May 2025. The drone surveys captured high-resolution elevation data across the entire Port Fairy Bay coastline.</p>
+            
+            <h3>Analysis Approach</h3>
+            <ul class="methodology-list">
+                <li><strong>Transect Analysis:</strong> Shore-perpendicular transects were established to track cross-shore elevation changes</li>
+                <li><strong>Mean Elevation Change (MEC):</strong> Calculated as the average elevation difference between consecutive surveys</li>
+                <li><strong>Beachface Cluster Dynamics (BCD):</strong> Classification of morphological states (erosional/accretional)</li>
+                <li><strong>Residual BCD (r-BCD):</strong> Overall behavioral regime of each transect across all survey periods</li>
+                <li><strong>Wave Analysis:</strong> Correlation with offshore wave data from Sofar Spotter buoy</li>
+            </ul>
+            
+            <h3>Python Analysis Code</h3>
+            <p>All data processing and analysis was performed using Python with libraries including:</p>
+            <ul class="methodology-list">
+                <li><code>pandas</code> and <code>numpy</code> for data manipulation</li>
+                <li><code>geopandas</code> for spatial analysis</li>
+                <li><code>matplotlib</code> and <code>seaborn</code> for visualization</li>
+                <li><code>scipy</code> for statistical analysis</li>
+                <li><code>arcpy</code> for GIS operations</li>
+            </ul>
+            
+            <a href="https://github.com/npucino/sandpyper" class="github-link" target="_blank">
+                View sandpyper Repository →
+            </a>
+            
+            <p style="margin-top: 1rem;"><em>The analysis utilized the sandpyper package for shoreline extraction and coastal change detection.</em></p>
+        </section>
+        
+        <section id="publication">
+            <h2>Publication</h2>
+            
+            <div class="publication-info">
+                <h3 style="color: #2a5298; margin-top: 0;">Journal Article</h3>
+                <p><strong>Title:</strong> Cross-shore vulnerability gradients and rock armour impacts on sandy beach evolution</p>
+                <p><strong>Authors:</strong> Siegmund Nuyts, et al.</p>
+                <p><strong>Journal:</strong> Coastal Engineering (In Review)</p>
+                <p><strong>Period:</strong> 2018-2025 (54 surveys)</p>
+                <p><strong>Location:</strong> Port Fairy Bay, Victoria, Australia (38°22'S, 142°14'E)</p>
+            </div>
+            
+            <h3>Abstract</h3>
+            <p>This study investigates coastal vulnerability patterns and the influence of rock armour structures on sandy beach morphodynamics using seven years of UAV-derived topographic data from Port Fairy Bay, Australia. Analysis of 54 drone surveys reveals strong correlations between wave forcing and beach elevation change, with maximum wave height (r = 0.61) and wave direction showing significant control on erosion/accretion patterns. The research demonstrates elevation-dependent vulnerability gradients and identifies persistent behavioral regimes associated with coastal protection structures.</p>
+            
+            <h3>Research Impact</h3>
+            <p>This work contributes to understanding climate change impacts on sandy coastlines and provides evidence-based insights for coastal management and adaptation strategies in embayed coastal systems.</p>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Port Fairy Coastal Change Analysis | Victorian Coastal Monitoring Program</p>
+            <p>Data: Bush Heritage Australia & Deakin University</p>
+        </div>
+    </footer>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="data.js"></script>
+    <script src="map.js"></script>
+    <script src="charts.js"></script>
+</body>
+</html>
