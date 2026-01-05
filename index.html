@@ -4,13 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoastWatch Victoria | Coastal Monitoring Data Analytics</title>
-    
-    <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
-    
     <style>
         :root {
             --dark-bg: #0a0e27;
@@ -19,34 +14,18 @@
             --primary: #00d4ff;
             --primary-glow: rgba(0, 212, 255, 0.3);
             --secondary: #7c3aed;
-            --accent: #f59e0b;
             --text-primary: #e5e7eb;
             --text-secondary: #9ca3af;
             --border: #1f2937;
-            --erosion: #ef4444;
-            --accretion: #10b981;
-            --neutral: #fbbf24;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
             background: var(--dark-bg);
         }
-        
-        .container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
+        .container { max-width: 1600px; margin: 0 auto; padding: 0 20px; }
         header {
             background: linear-gradient(135deg, var(--darker-bg) 0%, var(--card-bg) 100%);
             border-bottom: 2px solid var(--primary);
@@ -54,25 +33,15 @@
             position: relative;
             overflow: hidden;
         }
-        
         header::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(45deg, var(--primary-glow) 0%, transparent 70%),
-                linear-gradient(-45deg, rgba(124, 58, 237, 0.2) 0%, transparent 70%);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(45deg, var(--primary-glow) 0%, transparent 70%),
+                        linear-gradient(-45deg, rgba(124, 58, 237, 0.2) 0%, transparent 70%);
             pointer-events: none;
         }
-        
-        header .container {
-            position: relative;
-            z-index: 1;
-        }
-        
+        header .container { position: relative; z-index: 1; }
         header h1 {
             font-size: 2.5rem;
             font-weight: 700;
@@ -82,51 +51,21 @@
             background-clip: text;
             margin-bottom: 0.5rem;
         }
-        
-        header .subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.3rem;
-        }
-        
-        header .meta {
-            font-size: 0.95rem;
-            color: var(--primary);
-            font-weight: 500;
-        }
-        
-        nav {
+        header .subtitle { font-size: 1.1rem; color: var(--text-secondary); }
+        .breadcrumb {
             background: var(--card-bg);
             padding: 1rem 0;
             border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
+            display: none;
         }
-        
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-        }
-        
-        nav a:hover {
+        .breadcrumb.active { display: block; }
+        .breadcrumb a {
             color: var(--primary);
-            background: rgba(0, 212, 255, 0.1);
+            text-decoration: none;
+            cursor: pointer;
         }
-        
+        .breadcrumb a:hover { color: var(--secondary); }
+        .breadcrumb span { color: var(--text-secondary); margin: 0 0.5rem; }
         section {
             background: var(--card-bg);
             margin: 2rem 0;
@@ -135,7 +74,6 @@
             border: 1px solid var(--border);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
-        
         h2 {
             color: var(--primary);
             font-size: 2rem;
@@ -144,28 +82,24 @@
             padding-bottom: 0.5rem;
             display: inline-block;
         }
-        
         h3 {
             color: var(--text-primary);
             font-size: 1.4rem;
             margin-top: 2rem;
             margin-bottom: 1rem;
         }
-        
         #map {
-            height: 650px;
+            height: 600px;
             border-radius: 8px;
             border: 1px solid var(--border);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
-        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.5rem;
             margin: 2rem 0;
         }
-        
         .stat-card {
             background: linear-gradient(135deg, var(--darker-bg) 0%, var(--card-bg) 100%);
             border: 1px solid var(--border);
@@ -175,24 +109,20 @@
             position: relative;
             overflow: hidden;
         }
-        
         .stat-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             width: 100%;
             height: 3px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
-        
         .stat-card h3 {
             color: var(--primary);
             font-size: 2.5rem;
             margin: 0.5rem 0;
             font-weight: 700;
         }
-        
         .stat-card .label {
             color: var(--text-secondary);
             font-size: 0.85rem;
@@ -200,13 +130,11 @@
             letter-spacing: 1px;
             font-weight: 600;
         }
-        
         .stat-card .value-detail {
             color: var(--text-primary);
             font-size: 0.9rem;
             margin-top: 0.3rem;
         }
-        
         .chart-container {
             position: relative;
             height: 450px;
@@ -216,50 +144,6 @@
             border-radius: 8px;
             border: 1px solid var(--border);
         }
-        
-        .analysis-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        
-        .analysis-card {
-            background: var(--darker-bg);
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            border-radius: 8px;
-        }
-        
-        .analysis-card h4 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        
-        .legend {
-            background: var(--darker-bg);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            border: 1px solid var(--border);
-        }
-        
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 0.5rem 0;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        
-        .legend-color {
-            width: 30px;
-            height: 20px;
-            border-radius: 4px;
-        }
-        
         .info-box {
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
             border-left: 4px solid var(--primary);
@@ -267,43 +151,21 @@
             border-radius: 6px;
             margin: 1rem 0;
         }
-        
-        .info-box p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            margin-top: 1rem;
-            margin-right: 1rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px var(--primary-glow);
-        }
-        
-        .btn-secondary {
-            background: var(--card-bg);
+        .info-box p { color: var(--text-secondary); line-height: 1.8; }
+        .data-source {
+            background: var(--darker-bg);
             border: 1px solid var(--primary);
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+        }
+        .data-source strong { color: var(--primary); }
+        .data-source a {
             color: var(--primary);
+            text-decoration: none;
         }
-        
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: var(--darker-bg);
-        }
-        
+        .data-source a:hover { text-decoration: underline; }
+        .hidden { display: none !important; }
         footer {
             background: var(--darker-bg);
             color: var(--text-secondary);
@@ -312,68 +174,30 @@
             margin-top: 3rem;
             border-top: 2px solid var(--border);
         }
-        
         footer a {
             color: var(--primary);
             text-decoration: none;
         }
-        
-        footer a:hover {
-            text-decoration: underline;
-        }
-        
-        code {
+        footer a:hover { text-decoration: underline; }
+        .legend {
             background: var(--darker-bg);
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            color: var(--primary);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
             border: 1px solid var(--border);
         }
-        
-        ul.method-list {
-            list-style-position: inside;
-            padding-left: 1rem;
-        }
-        
-        ul.method-list li {
-            margin: 0.8rem 0;
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
             color: var(--text-secondary);
+            font-size: 0.9rem;
         }
-        
-        .data-source {
-            background: var(--darker-bg);
-            border: 1px solid var(--primary);
-            padding: 1rem;
-            border-radius: 6px;
-            margin: 1rem 0;
-        }
-        
-        .data-source strong {
-            color: var(--primary);
-        }
-        
-        .data-source a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-        
-        .data-source a:hover {
-            text-decoration: underline;
-        }
-        
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .analysis-grid {
-                grid-template-columns: 1fr;
-            }
+        .legend-color {
+            width: 30px;
+            height: 20px;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -381,237 +205,66 @@
     <header>
         <div class="container">
             <h1>CoastWatch Victoria</h1>
-            <p class="subtitle">Data Analytics Platform for Victorian Coastal Monitoring</p>
-            <p class="meta">Port Fairy Bay | 7 Years UAV Monitoring | 54 Survey Campaigns</p>
+            <p class="subtitle">Coastal Monitoring Data Analytics Platform</p>
         </div>
     </header>
     
-    <nav>
+    <div class="breadcrumb" id="breadcrumb">
         <div class="container">
-            <ul>
-                <li><a href="#overview">Overview</a></li>
-                <li><a href="#map-section">Interactive Map</a></li>
-                <li><a href="#analytics">Data Analytics</a></li>
-                <li><a href="#wave-analysis">Wave Analysis</a></li>
-                <li><a href="#methodology">Methodology</a></li>
-                <li><a href="#publication">Publication</a></li>
-            </ul>
+            <a onclick="showOverview()">Victoria Overview</a>
+            <span>›</span>
+            <span id="current-site-name"></span>
         </div>
-    </nav>
+    </div>
     
     <div class="container">
-        <section id="overview">
-            <h2>Coastal Change Analytics for Victoria</h2>
-            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem;">
-                CoastWatch Victoria provides data-driven insights into coastal change patterns across the Victorian Coastal Monitoring Program network. Using advanced UAV photogrammetry and wave monitoring integration, we track beach evolution, analyze driving forces, and deliver actionable intelligence for coastal management.
-            </p>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <p class="label">Monitoring Period</p>
-                    <h3>7</h3>
-                    <p class="value-detail">Years (2018-2025)</p>
-                </div>
-                <div class="stat-card">
-                    <p class="label">Survey Campaigns</p>
-                    <h3>54</h3>
-                    <p class="value-detail">Drone Surveys</p>
-                </div>
-                <div class="stat-card">
-                    <p class="label">Transects Analyzed</p>
-                    <h3>220</h3>
-                    <p class="value-detail">Shore-perpendicular</p>
-                </div>
-                <div class="stat-card">
-                    <p class="label">Data Points</p>
-                    <h3>22,447</h3>
-                    <p class="value-detail">Elevation Measurements</p>
-                </div>
-                <div class="stat-card">
-                    <p class="label">Study Area</p>
-                    <h3>5.8</h3>
-                    <p class="value-detail">km Coastline</p>
-                </div>
-                <div class="stat-card">
-                    <p class="label">Wave Records</p>
-                    <h3>111,991</h3>
-                    <p class="value-detail">Observations</p>
-                </div>
-            </div>
-            
-            <h3>Port Fairy Bay Monitoring Site</h3>
-            <div class="info-box">
-                <p style="color: var(--text-secondary); line-height: 1.8;">
-                    <strong>Location:</strong> Port Fairy Bay, south-western Victoria (38°22'S, 142°14'E)<br>
-                    <strong>Coastline:</strong> 5.8 km south-east facing sandy beach<br>
-                    <strong>Monitoring Period:</strong> March 2018 - May 2025<br>
-                    <strong>Data Integration:</strong> UAV surveys combined with offshore wave buoy measurements
+        <!-- LEVEL 1: Victoria Overview -->
+        <div id="victoria-overview">
+            <section>
+                <h2>Coastal Change Analytics for Victoria</h2>
+                <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem;">
+                    Track coastal change across Victoria's monitoring network. Select a site on the map below to explore detailed analysis of beach evolution, wave forcing, and long-term trends.
                 </p>
-            </div>
-        </section>
+                
+                <div class="info-box">
+                    <p><strong>Victorian Coastal Monitoring Program:</strong> A state-wide initiative tracking beach change through UAV photogrammetry and wave monitoring. Click on any active monitoring site to view detailed analytics.</p>
+                </div>
+            </section>
+            
+            <section>
+                <h2>Monitoring Sites Across Victoria</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                    Click on a site marker to view detailed coastal change analysis. Active sites show comprehensive data; upcoming sites are in development.
+                </p>
+                <div id="overview-map" style="height: 600px; border-radius: 8px; border: 1px solid var(--border);"></div>
+                
+                <div class="stats-grid" style="margin-top: 2rem;">
+                    <div class="stat-card">
+                        <p class="label">Active Sites</p>
+                        <h3>1</h3>
+                        <p class="value-detail">Port Fairy Bay</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="label">Sites in Development</p>
+                        <h3>3</h3>
+                        <p class="value-detail">Coming Soon</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="label">Total Surveys</p>
+                        <h3>54</h3>
+                        <p class="value-detail">2018-2025</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="label">Coastline Monitored</p>
+                        <h3>5.8</h3>
+                        <p class="value-detail">km (and growing)</p>
+                    </div>
+                </div>
+            </section>
+        </div>
         
-        <section id="map-section">
-            <h2>Interactive Spatial Analysis</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Explore transect locations, elevation changes, and wave buoy position. Click markers for detailed information.
-            </p>
-            <div id="map"></div>
-            
-            <div class="legend">
-                <h4 style="color: var(--primary); margin-bottom: 0.8rem;">Elevation Change Classification</h4>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #10b981;"></div>
-                    <span>High Accretion (> +0.5 m)</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #84cc16;"></div>
-                    <span>Moderate Accretion (+0.2 to +0.5 m)</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #fbbf24;"></div>
-                    <span>Stable (±0.2 m)</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #f97316;"></div>
-                    <span>Moderate Erosion (-0.2 to -0.5 m)</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #ef4444;"></div>
-                    <span>High Erosion (< -0.5 m)</span>
-                </div>
-            </div>
-        </section>
-        
-        <section id="analytics">
-            <h2>Understanding Beach Change Over Time</h2>
-            
-            <h3>Seven Years of Coastal Evolution</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                From 2018 to 2025, we've tracked how Port Fairy's beaches have changed through 54 drone surveys. This timeline reveals both short-term fluctuations and long-term trends in beach elevation.
-            </p>
-            <div class="chart-container">
-                <canvas id="mecTimeSeriesChart"></canvas>
-            </div>
-            
-            <h3>Where Change Happens Along the Coast</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Different parts of the coastline respond differently. This spatial view shows which areas are eroding, which are accreting, and which remain stable.
-            </p>
-            <div class="chart-container">
-                <canvas id="behavioralChart"></canvas>
-            </div>
-        </section>
-        
-        <section id="wave-analysis">
-            <h2>The Ocean's Influence</h2>
-            
-            <div class="data-source">
-                <strong>Wave Monitoring:</strong> Real-time data from Sofar Spotter buoy (~3 km offshore, 28m depth)<br>
-                <strong>Data Source:</strong> <a href="https://auswaves.org/vic-waves/" target="_blank">AusWaves - Victorian Wave Network</a><br>
-                <strong>Observations:</strong> 111,991 wave measurements since September 2018
-            </div>
-            
-            <h3>Wave Conditions Drive Beach Change</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Offshore wave heights directly control whether beaches erode or build up. Tracking wave conditions over the same period reveals the forcing behind coastal change patterns.
-            </p>
-            <div class="chart-container">
-                <canvas id="waveHeightChart"></canvas>
-            </div>
-            
-            <div class="info-box">
-                <p><strong>The Connection:</strong> Statistical analysis shows a strong relationship (r = 0.61, p < 0.001) between wave height and beach change. Higher waves cause erosion, while calmer periods allow beaches to recover through sand accumulation.</p>
-            </div>
-        </section>
-        
-        <section id="methodology">
-            <h2>Analytical Methodology</h2>
-            
-            <h3>Data Collection</h3>
-            <p style="color: var(--text-secondary);">
-                Beach topography surveyed using DJI Phantom 4 RTK UAV at regular intervals from March 2018 to May 2025. Structure-from-Motion photogrammetry processed in Agisoft Metashape to generate high-resolution Digital Elevation Models (DEMs).
-            </p>
-            
-            <h3>Analysis Framework</h3>
-            <ul class="method-list">
-                <li><strong>Mean Elevation Change (MEC):</strong> Average elevation difference between consecutive surveys across all measurement points</li>
-                <li><strong>Beachface Cluster Dynamics (BCD):</strong> Jenks natural breaks classification of morphological states (erosional/neutral/accretional)</li>
-                <li><strong>Residual BCD (r-BCD):</strong> Cumulative behavioral index characterizing overall regime of each transect</li>
-                <li><strong>Cross-shore Zonation:</strong> Division into offshore, mid-beach, and onshore zones based on elevation profiles</li>
-                <li><strong>Wave Correlation:</strong> Integration with offshore wave buoy data (Hsig, Tp, Dp) for forcing-response analysis</li>
-            </ul>
-            
-            <h3>Python Analysis Pipeline</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                All processing performed using Python scientific stack:
-            </p>
-            <div class="analysis-grid">
-                <div class="analysis-card">
-                    <h4>Core Libraries</h4>
-                    <ul class="method-list">
-                        <li><code>pandas</code> - Data manipulation</li>
-                        <li><code>numpy</code> - Numerical computing</li>
-                        <li><code>scipy</code> - Statistical analysis</li>
-                    </ul>
-                </div>
-                <div class="analysis-card">
-                    <h4>Geospatial Tools</h4>
-                    <ul class="method-list">
-                        <li><code>geopandas</code> - Spatial analysis</li>
-                        <li><code>arcpy</code> - GIS automation</li>
-                        <li><code>rasterio</code> - Raster processing</li>
-                    </ul>
-                </div>
-                <div class="analysis-card">
-                    <h4>Visualization</h4>
-                    <ul class="method-list">
-                        <li><code>matplotlib</code> - Statistical plots</li>
-                        <li><code>seaborn</code> - Advanced viz</li>
-                        <li><code>plotly</code> - Interactive figures</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <a href="https://github.com/npucino/sandpyper" class="btn" target="_blank">
-                View sandpyper Repository →
-            </a>
-            <a href="https://github.com/NuytsSiegmund/CoastWatch-VIC" class="btn btn-secondary" target="_blank">
-                View Analysis Code →
-            </a>
-        </section>
-        
-        <section id="publication">
-            <h2>About This Platform</h2>
-            
-            <div class="info-box" style="border-left-color: var(--secondary);">
-                <h3 style="color: var(--text-primary); margin-top: 0;">Victorian Coastal Monitoring Program</h3>
-                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Program:</strong> Victorian Coastal Monitoring Program (VCMP)</p>
-                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Current Site:</strong> Port Fairy Bay, Victoria, Australia (38°22'S, 142°14'E)</p>
-                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Study Period:</strong> 2018-2025 (54 drone surveys over 7 years)</p>
-                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Data Collection:</strong> UAV photogrammetry with wave buoy integration</p>
-                <p style="margin: 0.5rem 0;"><strong style="color: var(--primary);">Organizations:</strong> Bush Heritage Australia & Deakin University</p>
-            </div>
-            
-            <h3>Platform Overview</h3>
-            <p style="color: var(--text-secondary); line-height: 1.8;">
-                CoastWatch Victoria demonstrates an integrated approach to coastal monitoring data analytics, combining high-resolution UAV-derived topographic surveys with offshore wave measurements. The platform analyzes mean elevation change (MEC), behavioral classification using Jenks natural breaks, and cross-shore zonation to understand coastal vulnerability patterns. Wave-morphology correlation analysis reveals wave height as the primary control on beach change (r = 0.61, p < 0.001), with distinct responses across offshore, mid-beach, and onshore zones. This methodology framework is designed for scalable deployment across all Victorian Coastal Monitoring Program sites, enabling statewide assessment of coastal change patterns and climate adaptation planning.
-            </p>
-            
-            <h3>Methodology Highlights</h3>
-            <ul class="method-list">
-                <li><strong>UAV Photogrammetry:</strong> DJI Phantom 4 RTK surveys processed with Structure-from-Motion techniques</li>
-                <li><strong>Temporal Analysis:</strong> Mean Elevation Change (MEC) calculated between 54 consecutive survey periods</li>
-                <li><strong>Behavioral Classification:</strong> Jenks natural breaks algorithm applied to morphological state transitions</li>
-                <li><strong>Cross-shore Zonation:</strong> Beach profiles divided into offshore, mid-beach, and onshore zones</li>
-                <li><strong>Wave Integration:</strong> Correlation analysis with offshore Sofar Spotter buoy data (111,991 observations)</li>
-                <li><strong>Statistical Validation:</strong> Pearson correlation coefficients and significance testing for wave-morphology relationships</li>
-            </ul>
-            
-            <h3>Future Development</h3>
-            <p style="color: var(--text-secondary); line-height: 1.8;">
-                This platform serves as a proof-of-concept for statewide VCMP data analytics. Future expansion will include additional monitoring sites across Victoria, automated data pipelines for real-time updates, predictive modeling integration, and comparative site analysis tools to support evidence-based coastal management decision-making.
-            </p>
-        </section>
+        <!-- LEVEL 2: Site Details (Hidden by default) -->
+        <div id="site-details" class="hidden"></div>
     </div>
     
     <footer>
@@ -622,10 +275,7 @@
         </div>
     </footer>
     
-    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
-    <!-- Custom JavaScript -->
     <script src="data.js"></script>
     <script src="map.js"></script>
     <script src="charts.js"></script>
