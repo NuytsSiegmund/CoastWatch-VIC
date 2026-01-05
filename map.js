@@ -50,17 +50,15 @@ function initializeMap() {
         return 6;
     }
     
-    // Add transect polylines
+    // Add transect markers
     portFairyData.transects.forEach(transect => {
-        // Convert coordinates to Leaflet format [lat, lon]
-        const latLngs = transect.coordinates.map(coord => [coord[1], coord[0]]);
-        
-        // Create polyline for transect
-        const polyline = L.polyline(latLngs, {
-            color: getColor(transect.change),
-            weight: 3,
+        const marker = L.circleMarker([transect.lat, transect.lon], {
+            radius: getSize(transect.change),
+            fillColor: getColor(transect.change),
+            color: '#00d4ff',
+            weight: 1,
             opacity: 0.8,
-            className: 'transect-line'
+            fillOpacity: 0.7
         });
         
         // Create popup content with dark theme
@@ -77,20 +75,15 @@ function initializeMap() {
                     <div style="font-size: 1.2em; font-weight: bold; color: ${getColor(transect.change)};">
                         ${changeText}
                     </div>
-                    <div style="border-top: 1px solid #1f2937; padding-top: 8px; margin-top: 4px;">
-                        <strong style="color: #9ca3af;">Cross-shore Zones:</strong>
-                        <div style="font-size: 0.9em; margin-top: 4px;">
-                            Offshore: ${transect.offshoreChange >= 0 ? '+' : ''}${transect.offshoreChange.toFixed(2)}m<br>
-                            Mid-beach: ${transect.midbeachChange >= 0 ? '+' : ''}${transect.midbeachChange.toFixed(2)}m<br>
-                            Onshore: ${transect.onshoreChange >= 0 ? '+' : ''}${transect.onshoreChange.toFixed(2)}m
-                        </div>
+                    <div style="font-size: 0.85em; color: #6b7280; margin-top: 4px;">
+                        ${transect.lat.toFixed(5)}°S, ${transect.lon.toFixed(5)}°E
                     </div>
                 </div>
             </div>
         `;
         
-        polyline.bindPopup(popupContent);
-        polyline.addTo(map);
+        marker.bindPopup(popupContent);
+        marker.addTo(map);
     });
     
     // Add wave buoy marker
