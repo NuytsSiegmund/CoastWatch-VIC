@@ -2,9 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     createMECTimeSeriesChart();
     createBehavioralRegimesChart();
-    createCrossShoreComparisonChart();
     createWaveHeightChart();
-    createWaveCorrelationChart();
 });
 
 // Dark theme colors
