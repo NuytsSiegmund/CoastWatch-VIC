@@ -21,13 +21,13 @@ function initializeMap() {
         maxZoom: 20
     });
     
-    // Add default layer
-    darkMap.addTo(map);
+    // Add default layer - start with satellite
+    darkSatellite.addTo(map);
     
     // Layer control
     const baseMaps = {
-        "Dark Map": darkMap,
-        "Satellite": darkSatellite
+        "Satellite": darkSatellite,
+        "Dark Map": darkMap
     };
     
     L.control.layers(baseMaps).addTo(map);
@@ -50,15 +50,17 @@ function initializeMap() {
         return 6;
     }
     
-    // Add transect markers
+    // Add transect polylines
     portFairyData.transects.forEach(transect => {
-        const marker = L.circleMarker([transect.lat, transect.lon], {
-            radius: getSize(transect.change),
-            fillColor: getColor(transect.change),
-            color: '#00d4ff',
-            weight: 1,
+        // Convert coordinates to Leaflet format [lat, lon]
+        const latLngs = transect.coordinates.map(coord => [coord[1], coord[0]]);
+        
+        // Create polyline for transect
+        const polyline = L.polyline(latLngs, {
+            color: getColor(transect.change),
+            weight: 3,
             opacity: 0.8,
-            fillOpacity: 0.7
+            className: 'transect-line'
         });
         
         // Create popup content with dark theme
@@ -83,15 +85,12 @@ function initializeMap() {
                             Onshore: ${transect.onshoreChange >= 0 ? '+' : ''}${transect.onshoreChange.toFixed(2)}m
                         </div>
                     </div>
-                    <div style="font-size: 0.85em; color: #6b7280; margin-top: 4px;">
-                        ${transect.lat.toFixed(5)}°S, ${transect.lon.toFixed(5)}°E
-                    </div>
                 </div>
             </div>
         `;
         
-        marker.bindPopup(popupContent);
-        marker.addTo(map);
+        polyline.bindPopup(popupContent);
+        polyline.addTo(map);
     });
     
     // Add wave buoy marker
