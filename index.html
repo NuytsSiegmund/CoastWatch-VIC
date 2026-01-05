@@ -401,9 +401,9 @@
     
     <div class="container">
         <section id="overview">
-            <h2>Research Overview</h2>
+            <h2>Coastal Change Analytics for Victoria</h2>
             <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 2rem;">
-                CoastWatch Victoria provides advanced data analytics for the Victorian Coastal Monitoring Program (VCMP), demonstrating coastal change patterns through integration of UAV photogrammetry, wave forcing analysis, and behavioral classification methods. This platform showcases proof-of-concept analysis for Port Fairy Bay, with methodology designed for statewide scalability across all VCMP monitoring sites.
+                CoastWatch Victoria provides data-driven insights into coastal change patterns across the Victorian Coastal Monitoring Program network. Using advanced UAV photogrammetry and wave monitoring integration, we track beach evolution, analyze driving forces, and deliver actionable intelligence for coastal management.
             </p>
             
             <div class="stats-grid">
@@ -439,15 +439,14 @@
                 </div>
             </div>
             
-            <h3>Key Findings</h3>
+            <h3>Port Fairy Bay Monitoring Site</h3>
             <div class="info-box">
-                <ul class="method-list">
-                    <li><strong>Wave-Morphology Correlation:</strong> Strong relationship between maximum wave height and mean elevation change (r = 0.61, p < 0.001)</li>
-                    <li><strong>Directional Sensitivity:</strong> Wave direction shows significant control on erosion/accretion patterns based on transect orientation</li>
-                    <li><strong>Cross-shore Variability:</strong> Distinct behavioral patterns between subtidal, intertidal, and supratidal zones</li>
-                    <li><strong>Structural Impacts:</strong> Rock armour creates persistent erosional zones with 67% behavioral persistence</li>
-                    <li><strong>Elevation-Dependent Response:</strong> Cross-shore vulnerability gradients demonstrate depth-dependent sensitivity to wave forcing</li>
-                </ul>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    <strong>Location:</strong> Port Fairy Bay, south-western Victoria (38°22'S, 142°14'E)<br>
+                    <strong>Coastline:</strong> 5.8 km south-east facing sandy beach<br>
+                    <strong>Monitoring Period:</strong> March 2018 - May 2025<br>
+                    <strong>Data Integration:</strong> UAV surveys combined with offshore wave buoy measurements
+                </p>
             </div>
         </section>
         
@@ -484,60 +483,44 @@
         </section>
         
         <section id="analytics">
-            <h2>Data Analytics Dashboard</h2>
+            <h2>Understanding Beach Change Over Time</h2>
             
-            <h3>Figure 1: Mean Elevation Change Time Series</h3>
+            <h3>Seven Years of Coastal Evolution</h3>
             <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Individual and cumulative beach elevation change showing temporal erosion/accretion patterns (2018-2025).
+                From 2018 to 2025, we've tracked how Port Fairy's beaches have changed through 54 drone surveys. This timeline reveals both short-term fluctuations and long-term trends in beach elevation.
             </p>
             <div class="chart-container">
                 <canvas id="mecTimeSeriesChart"></canvas>
             </div>
             
-            <h3>Figure 2: Alongshore Behavioral Pattern</h3>
+            <h3>Where Change Happens Along the Coast</h3>
             <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Total elevation change across 220 transects showing spatial distribution of erosion and accretion.
+                Different parts of the coastline respond differently. This spatial view shows which areas are eroding, which are accreting, and which remain stable.
             </p>
             <div class="chart-container">
                 <canvas id="behavioralChart"></canvas>
             </div>
-            
-            <h3>Figure 3: Cross-shore Zone Comparison</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Average elevation change by cross-shore zone demonstrating depth-dependent coastal response.
-            </p>
-            <div class="chart-container" style="height: 350px;">
-                <canvas id="crossShoreChart"></canvas>
-            </div>
         </section>
         
         <section id="wave-analysis">
-            <h2>Wave-Morphology Correlation Analysis</h2>
+            <h2>The Ocean's Influence</h2>
             
             <div class="data-source">
-                <strong>Wave Data Source:</strong> Sofar Spotter buoy deployed offshore Port Fairy (~3 km, 28m depth)<br>
-                <strong>Provider:</strong> <a href="https://auswaves.org/vic-waves/" target="_blank">AusWaves - Victorian Wave Network</a><br>
-                <strong>Record Period:</strong> September 2018 - Present | 111,991 observations
+                <strong>Wave Monitoring:</strong> Real-time data from Sofar Spotter buoy (~3 km offshore, 28m depth)<br>
+                <strong>Data Source:</strong> <a href="https://auswaves.org/vic-waves/" target="_blank">AusWaves - Victorian Wave Network</a><br>
+                <strong>Observations:</strong> 111,991 wave measurements since September 2018
             </div>
             
-            <h3>Figure 4: Wave Height Time Series</h3>
+            <h3>Wave Conditions Drive Beach Change</h3>
             <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Temporal variation in wave heights showing 99th percentile, maximum, and mean conditions during survey periods.
+                Offshore wave heights directly control whether beaches erode or build up. Tracking wave conditions over the same period reveals the forcing behind coastal change patterns.
             </p>
             <div class="chart-container">
                 <canvas id="waveHeightChart"></canvas>
             </div>
             
-            <h3>Figure 5: Wave Height vs Beach Change</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                Correlation between 99th percentile wave height and mean elevation change (r = 0.61, p < 0.001).
-            </p>
-            <div class="chart-container">
-                <canvas id="waveCorrelationChart"></canvas>
-            </div>
-            
             <div class="info-box">
-                <p><strong>Statistical Significance:</strong> Strong negative correlation (r = 0.61, p < 0.001) demonstrates wave height as primary control on beach morphodynamics. Higher waves drive erosion, while lower wave periods enable beach recovery through accretion.</p>
+                <p><strong>The Connection:</strong> Statistical analysis shows a strong relationship (r = 0.61, p < 0.001) between wave height and beach change. Higher waves cause erosion, while calmer periods allow beaches to recover through sand accumulation.</p>
             </div>
         </section>
         
