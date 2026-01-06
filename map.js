@@ -70,7 +70,7 @@ function initializeMap() {
             <div style="background: #131829; color: #e5e7eb; padding: 0.5rem; min-width: 250px; font-family: 'Inter', sans-serif;">
                 <h3 style="margin: 0 0 10px 0; color: #00d4ff; border-bottom: 1px solid #1f2937; padding-bottom: 5px;">Transect ${transect.id}</h3>
                 <div style="display: grid; gap: 8px;">
-                    <div><strong style="color: #9ca3af;">Orientation:</strong> ${transect.orientation}°</div>
+                    <div><strong style="color: #9ca3af;">Orientation:</strong> ${transect.orientation}Â°</div>
                     <div><strong style="color: #9ca3af;">Total Change (2018-2025):</strong></div>
                     <div style="font-size: 1.2em; font-weight: bold; color: ${getColor(transect.change)};">
                         ${changeText}
@@ -84,7 +84,7 @@ function initializeMap() {
                         </div>
                     </div>
                     <div style="font-size: 0.85em; color: #6b7280; margin-top: 4px;">
-                        ${transect.lat.toFixed(5)}°S, ${transect.lon.toFixed(5)}°E
+                        ${transect.lat.toFixed(5)}Â°S, ${transect.lon.toFixed(5)}Â°E
                     </div>
                 </div>
             </div>
@@ -111,7 +111,7 @@ function initializeMap() {
                 color: white;
                 font-weight: bold;
                 font-size: 16px;
-            ">⚓</div>
+            ">âš“</div>
         `,
         iconSize: [30, 30],
         iconAnchor: [15, 15]
@@ -124,7 +124,7 @@ function initializeMap() {
     const buoyPopup = `
         <div style="background: #131829; color: #e5e7eb; padding: 0.5rem; min-width: 280px; font-family: 'Inter', sans-serif;">
             <h3 style="margin: 0 0 10px 0; color: #f59e0b; border-bottom: 1px solid #1f2937; padding-bottom: 5px;">
-                ⚓ ${portFairyData.waveBuoy.name}
+                âš“ ${portFairyData.waveBuoy.name}
             </h3>
             <div style="display: grid; gap: 6px;">
                 <div><strong style="color: #9ca3af;">Depth:</strong> ${portFairyData.waveBuoy.depth}m</div>
@@ -133,11 +133,11 @@ function initializeMap() {
                 <div style="border-top: 1px solid #1f2937; padding-top: 8px; margin-top: 4px;">
                     <a href="${portFairyData.waveBuoy.source}" target="_blank" 
                        style="color: #00d4ff; text-decoration: none; font-weight: 600;">
-                        View Live Data →
+                        View Live Data â†’
                     </a>
                 </div>
                 <div style="font-size: 0.85em; color: #6b7280; margin-top: 4px;">
-                    ${portFairyData.waveBuoy.lat.toFixed(5)}°S, ${portFairyData.waveBuoy.lon.toFixed(5)}°E
+                    ${portFairyData.waveBuoy.lat.toFixed(5)}Â°S, ${portFairyData.waveBuoy.lon.toFixed(5)}Â°E
                 </div>
             </div>
         </div>
@@ -169,7 +169,7 @@ function initializeMap() {
     const northArrow = L.control({position: 'bottomright'});
     northArrow.onAdd = function(map) {
         const div = L.DomUtil.create('div', 'north-arrow');
-        div.innerHTML = '<div style="background: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);"><strong style="font-size: 20px;">↑</strong><br><span style="font-size: 12px;">N</span></div>';
+        div.innerHTML = '<div style="background: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);"><strong style="font-size: 20px;">â†‘</strong><br><span style="font-size: 12px;">N</span></div>';
         return div;
     };
     northArrow.addTo(map);
