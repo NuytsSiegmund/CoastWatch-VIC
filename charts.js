@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     createSpatialChart();
     createCrossShoreChart();
     createWaveChart();
-    createWaveRoseChart();
 });
 
 // Dark theme colors
@@ -186,11 +185,11 @@ function createSpatialChart() {
     const labels = sortedTransects.map(t => `T${t.id}`);
     const data = sortedTransects.map(t => t.change);
     const colors = data.map(value => {
-        if (value > 0.5) return '#1a9850';
-        if (value > 0.2) return '#91cf60';
-        if (value > -0.2) return '#fee08b';
-        if (value > -0.5) return '#fc8d59';
-        return '#d73027';
+        if (value > 0.5) return '#10b981';
+        if (value > 0.2) return '#84cc16';
+        if (value > -0.2) return '#fbbf24';
+        if (value > -0.5) return '#f97316';
+        return '#ef4444';
     });
     
     new Chart(ctx, {
@@ -340,7 +339,7 @@ function createCrossShoreChart() {
     });
 }
 
-// Wave-Morphology Correlation Chart
+// Wave-Morphology Correlation Chart - REAL DATA
 function createWaveChart() {
     const ctx = document.getElementById('waveChart').getContext('2d');
     
@@ -429,131 +428,6 @@ function createWaveChart() {
                     },
                     grid: {
                         color: darkTheme.gridColor
-                    }
-                }
-            }
-        }
-    });
-}
-
-// Wave Rose Chart - Directional Distribution
-function createWaveRoseChart() {
-    const ctx = document.getElementById('waveRoseChart').getContext('2d');
-    
-    // Calculate wave direction frequency distribution from actual data
-    // Bin wave directions into 8 compass directions (45° bins)
-    const directionBins = {
-        'N': 0, 'NE': 0, 'E': 0, 'SE': 0, 'S': 0, 'SW': 0, 'W': 0, 'NW': 0
-    };
-    
-    const binNames = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
-    
-    // Process direction data
-    let totalCount = 0;
-    portFairyData.timeSeriesData.forEach(d => {
-        if (d.meanDirection !== null) {
-            totalCount++;
-            const dir = d.meanDirection;
-            
-            // Assign to bins (N=337.5-22.5°, NE=22.5-67.5°, etc.)
-            if ((dir >= 337.5 && dir <= 360) || (dir >= 0 && dir < 22.5)) {
-                directionBins['N']++;
-            } else if (dir >= 22.5 && dir < 67.5) {
-                directionBins['NE']++;
-            } else if (dir >= 67.5 && dir < 112.5) {
-                directionBins['E']++;
-            } else if (dir >= 112.5 && dir < 157.5) {
-                directionBins['SE']++;
-            } else if (dir >= 157.5 && dir < 202.5) {
-                directionBins['S']++;
-            } else if (dir >= 202.5 && dir < 247.5) {
-                directionBins['SW']++;
-            } else if (dir >= 247.5 && dir < 292.5) {
-                directionBins['W']++;
-            } else if (dir >= 292.5 && dir < 337.5) {
-                directionBins['NW']++;
-            }
-        }
-    });
-    
-    // Convert counts to percentages
-    const percentages = binNames.map(bin => 
-        totalCount > 0 ? (directionBins[bin] / totalCount * 100).toFixed(1) : 0
-    );
-    
-    // Create color gradient based on frequency
-    const maxPercentage = Math.max(...percentages);
-    const colors = percentages.map(p => {
-        const intensity = p / maxPercentage;
-        if (intensity > 0.7) return 'rgba(124, 58, 237, 0.8)';
-        if (intensity > 0.5) return 'rgba(124, 58, 237, 0.6)';
-        if (intensity > 0.3) return 'rgba(0, 212, 255, 0.6)';
-        if (intensity > 0.1) return 'rgba(0, 212, 255, 0.4)';
-        return 'rgba(0, 212, 255, 0.2)';
-    });
-    
-    new Chart(ctx, {
-        type: 'polarArea',
-        data: {
-            labels: binNames,
-            datasets: [{
-                label: 'Wave Frequency (%)',
-                data: percentages,
-                backgroundColor: colors,
-                borderColor: darkTheme.primaryColor,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Offshore Wave Direction Distribution (2018-2025)',
-                    font: { size: 16, weight: 'bold' },
-                    color: darkTheme.titleColor
-                },
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    backgroundColor: 'rgba(19, 24, 41, 0.95)',
-                    titleColor: darkTheme.titleColor,
-                    bodyColor: darkTheme.textColor,
-                    borderColor: darkTheme.primaryColor,
-                    borderWidth: 1,
-                    callbacks: {
-                        label: function(context) {
-                            return [
-                                `Direction: ${context.label}`,
-                                `Frequency: ${context.parsed.r}%`,
-                                `Count: ${directionBins[context.label]} observations`
-                            ];
-                        }
-                    }
-                }
-            },
-            scales: {
-                r: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: darkTheme.textColor,
-                        backdropColor: 'transparent',
-                        stepSize: 10,
-                        callback: function(value) {
-                            return value + '%';
-                        }
-                    },
-                    grid: {
-                        color: darkTheme.gridColor
-                    },
-                    pointLabels: {
-                        color: darkTheme.primaryColor,
-                        font: { 
-                            size: 14, 
-                            weight: 'bold' 
-                        }
                     }
                 }
             }
