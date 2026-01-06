@@ -1,10 +1,25 @@
-// Initialize charts when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    createTimeSeriesChart();
-    createSpatialChart();
-    createCrossShoreChart();
-    createWaveChart();
-});
+// Chart instances
+let chartInstances = [];
+
+// Create all charts
+function createAllCharts() {
+    destroyAllCharts();
+    
+    // Wait for DOM to be ready
+    setTimeout(() => {
+        createMECTimeSeriesChart();
+        createBehavioralRegimesChart();
+        createWaveHeightChart();
+    }, 50);
+}
+
+// Destroy all chart instances
+function destroyAllCharts() {
+    chartInstances.forEach(chart => {
+        if (chart) chart.destroy();
+    });
+    chartInstances = [];
+}
 
 // Dark theme colors
 const darkTheme = {
@@ -14,71 +29,65 @@ const darkTheme = {
     primaryColor: '#00d4ff',
     secondaryColor: '#7c3aed',
     erosionColor: '#ef4444',
-    accretionColor: '#10b981',
-    neutralColor: '#fbbf24'
+    accretionColor: '#10b981'
 };
 
 // Helper function to format dates
 function formatDate(dateStr) {
     const year = dateStr.substring(0, 4);
-    const month = dateStr.substring(4, 6);
-    const day = dateStr.substring(6, 8);
-    return `${year}-${month}-${day}`;
+    return year;
 }
 
-// Time Series Chart - MEC with wave overlay
-function createTimeSeriesChart() {
-    const ctx = document.getElementById('timeSeriesChart').getContext('2d');
+// MEC Time Series Chart
+function createMECTimeSeriesChart() {
+    const canvas = document.getElementById('mecTimeSeriesChart');
+    if (!canvas) return;
     
-    const labels = portFairyData.timeSeriesData.map(d => formatDate(d.endDate));
+    const ctx = canvas.getContext('2d');
+    
     const mecData = portFairyData.timeSeriesData.map(d => d.mec);
-    const waveData = portFairyData.timeSeriesData.map(d => d.maxWaveHeight);
+    const labels = portFairyData.timeSeriesData.map((d, i) => {
+        // Show year only when it changes
+        const year = formatDate(d.endDate);
+        if (i === 0) return year;
+        const prevYear = formatDate(portFairyData.timeSeriesData[i-1].endDate);
+        return year !== prevYear ? year : '';
+    });
     
-    new Chart(ctx, {
+    // Calculate cumulative MEC
+    let cumulative = 0;
+    const cumulativeMEC = mecData.map(mec => {
+        cumulative += mec;
+        return cumulative;
+    });
+    
+    const chart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: labels,
             datasets: [{
-                label: 'Mean Elevation Change (m)',
+                label: 'Individual MEC',
                 data: mecData,
                 borderColor: darkTheme.primaryColor,
-                backgroundColor: 'rgba(0, 212, 255, 0.1)',
+                backgroundColor: darkTheme.primaryColor,
                 borderWidth: 2,
-                fill: true,
-                tension: 0.4,
-                pointRadius: 4,
+                pointRadius: 5,
                 pointHoverRadius: 7,
-                pointBackgroundColor: mecData.map(v => v >= 0 ? darkTheme.accretionColor : darkTheme.erosionColor),
-                pointBorderColor: darkTheme.primaryColor,
-                pointBorderWidth: 2,
-                yAxisID: 'y'
+                fill: false
             }, {
-                label: 'Max Wave Height (m)',
-                data: waveData,
+                label: 'Cumulative MEC',
+                data: cumulativeMEC,
                 borderColor: darkTheme.secondaryColor,
-                backgroundColor: 'rgba(124, 58, 237, 0.1)',
                 borderWidth: 2,
-                fill: false,
-                tension: 0.4,
-                pointRadius: 3,
-                pointHoverRadius: 6,
-                pointBackgroundColor: darkTheme.secondaryColor,
-                pointBorderColor: '#fff',
-                pointBorderWidth: 1,
-                yAxisID: 'y1',
-                borderDash: [5, 5]
+                borderDash: [5, 5],
+                pointRadius: 0,
+                fill: false
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                title: {
-                    display: true,
-                    text: 'Mean Elevation Change and Wave Forcing (2018-2025)',
-                    font: { size: 16, weight: 'bold' },
-                    color: darkTheme.titleColor
-                },
                 legend: {
                     display: true,
                     position: 'top',
@@ -89,145 +98,87 @@ function createTimeSeriesChart() {
                     }
                 },
                 tooltip: {
-                    mode: 'index',
-                    intersect: false,
                     backgroundColor: 'rgba(19, 24, 41, 0.95)',
                     titleColor: darkTheme.titleColor,
                     bodyColor: darkTheme.textColor,
                     borderColor: darkTheme.primaryColor,
-                    borderWidth: 1,
-                    callbacks: {
-                        label: function(context) {
-                            let label = context.dataset.label || '';
-                            if (label) {
-                                label += ': ';
-                            }
-                            const value = context.parsed.y;
-                            if (context.datasetIndex === 0) {
-                                const changeType = value >= 0 ? 'Accretion' : 'Erosion';
-                                label += value.toFixed(3) + ' m (' + changeType + ')';
-                            } else {
-                                label += value ? value.toFixed(2) + ' m' : 'No data';
-                            }
-                            return label;
-                        }
-                    }
+                    borderWidth: 1
                 }
             },
             scales: {
                 y: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
                     title: {
                         display: true,
                         text: 'Mean Elevation Change (m)',
                         font: { size: 14, weight: 'bold' },
-                        color: darkTheme.primaryColor
-                    },
-                    ticks: {
                         color: darkTheme.textColor
                     },
-                    grid: {
-                        color: darkTheme.gridColor
-                    }
-                },
-                y1: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    title: {
-                        display: true,
-                        text: 'Max Wave Height (m)',
-                        font: { size: 14, weight: 'bold' },
-                        color: darkTheme.secondaryColor
-                    },
-                    ticks: {
-                        color: darkTheme.textColor
-                    },
-                    grid: {
-                        drawOnChartArea: false
-                    }
+                    min: -0.8,
+                    max: 0.8,
+                    ticks: { color: darkTheme.textColor },
+                    grid: { color: darkTheme.gridColor }
                 },
                 x: {
                     title: {
                         display: true,
-                        text: 'Survey Date',
+                        text: 'Year',
                         font: { size: 14, weight: 'bold' },
                         color: darkTheme.textColor
                     },
                     ticks: {
-                        maxRotation: 45,
-                        minRotation: 45,
-                        autoSkip: true,
-                        maxTicksLimit: 20,
+                        autoSkip: false,
                         color: darkTheme.textColor
                     },
-                    grid: {
-                        display: false
-                    }
+                    grid: { display: false }
                 }
-            },
-            interaction: {
-                mode: 'nearest',
-                axis: 'x',
-                intersect: false
             }
         }
     });
+    
+    chartInstances.push(chart);
 }
 
-// Spatial Distribution Chart
-function createSpatialChart() {
-    const ctx = document.getElementById('spatialChart').getContext('2d');
+// Behavioral Regimes Chart
+function createBehavioralRegimesChart() {
+    const canvas = document.getElementById('behavioralChart');
+    if (!canvas) return;
     
-    const sortedTransects = [...portFairyData.transects].sort((a, b) => a.id - b.id);
-    const labels = sortedTransects.map(t => `T${t.id}`);
-    const data = sortedTransects.map(t => t.change);
-    const colors = data.map(value => {
-        if (value > 0.5) return '#10b981';
-        if (value > 0.2) return '#84cc16';
-        if (value > -0.2) return '#fbbf24';
-        if (value > -0.5) return '#f97316';
+    const ctx = canvas.getContext('2d');
+    
+    const transects = [...portFairyData.transects].sort((a, b) => a.id - b.id);
+    const labels = transects.map(t => t.id);
+    const changes = transects.map(t => t.change);
+    
+    const colors = changes.map(c => {
+        if (c > 0.5) return '#10b981';
+        if (c > 0.2) return '#84cc16';
+        if (c > -0.2) return '#fbbf24';
+        if (c > -0.5) return '#f97316';
         return '#ef4444';
     });
     
-    new Chart(ctx, {
+    const chart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [{
-                label: 'Elevation Change (m)',
-                data: data,
+                label: 'Total Change (m)',
+                data: changes,
                 backgroundColor: colors,
-                borderColor: darkTheme.primaryColor,
-                borderWidth: 0.5
+                borderWidth: 0
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: {
-                    display: false
-                },
+                legend: { display: false },
                 tooltip: {
                     backgroundColor: 'rgba(19, 24, 41, 0.95)',
                     titleColor: darkTheme.titleColor,
                     bodyColor: darkTheme.textColor,
                     borderColor: darkTheme.primaryColor,
-                    borderWidth: 1,
-                    callbacks: {
-                        label: function(context) {
-                            const value = context.parsed.y;
-                            const changeType = value >= 0 ? 'Accretion' : 'Erosion';
-                            return `Change: ${value.toFixed(3)} m (${changeType})`;
-                        },
-                        afterLabel: function(context) {
-                            const transect = sortedTransects[context.dataIndex];
-                            return `Orientation: ${transect.orientation}°`;
-                        }
-                    }
+                    borderWidth: 1
                 }
             },
             scales: {
@@ -235,147 +186,84 @@ function createSpatialChart() {
                     title: {
                         display: true,
                         text: 'Elevation Change (m)',
-                        font: { size: 12, weight: 'bold' },
-                        color: darkTheme.primaryColor
-                    },
-                    ticks: {
+                        font: { size: 14, weight: 'bold' },
                         color: darkTheme.textColor
                     },
-                    grid: {
-                        color: darkTheme.gridColor
-                    }
+                    ticks: { color: darkTheme.textColor },
+                    grid: { color: darkTheme.gridColor }
                 },
                 x: {
+                    title: {
+                        display: true,
+                        text: 'Transects Alongshore (West → East)',
+                        font: { size: 14, weight: 'bold' },
+                        color: darkTheme.textColor
+                    },
                     ticks: {
                         autoSkip: true,
-                        maxTicksLimit: 30,
+                        maxTicksLimit: 20,
                         color: darkTheme.textColor
                     },
-                    grid: {
-                        display: false
-                    }
+                    grid: { display: false }
                 }
             }
         }
     });
+    
+    chartInstances.push(chart);
 }
 
-// Cross-shore Zone Comparison Chart
-function createCrossShoreChart() {
-    const ctx = document.getElementById('crossShoreChart').getContext('2d');
+// Wave Height Chart
+function createWaveHeightChart() {
+    const canvas = document.getElementById('waveHeightChart');
+    if (!canvas) return;
     
-    // Calculate average change per zone
-    const avgOffshore = portFairyData.transects.reduce((sum, t) => sum + t.offshoreChange, 0) / portFairyData.transects.length;
-    const avgMidbeach = portFairyData.transects.reduce((sum, t) => sum + t.midbeachChange, 0) / portFairyData.transects.length;
-    const avgOnshore = portFairyData.transects.reduce((sum, t) => sum + t.onshoreChange, 0) / portFairyData.transects.length;
+    const ctx = canvas.getContext('2d');
     
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Offshore', 'Mid-beach', 'Onshore'],
-            datasets: [{
-                label: 'Average Elevation Change (m)',
-                data: [avgOffshore, avgMidbeach, avgOnshore],
-                backgroundColor: [
-                    avgOffshore >= 0 ? 'rgba(16, 185, 129, 0.7)' : 'rgba(239, 68, 68, 0.7)',
-                    avgMidbeach >= 0 ? 'rgba(16, 185, 129, 0.7)' : 'rgba(239, 68, 68, 0.7)',
-                    avgOnshore >= 0 ? 'rgba(16, 185, 129, 0.7)' : 'rgba(239, 68, 68, 0.7)'
-                ],
-                borderColor: [
-                    avgOffshore >= 0 ? '#10b981' : '#ef4444',
-                    avgMidbeach >= 0 ? '#10b981' : '#ef4444',
-                    avgOnshore >= 0 ? '#10b981' : '#ef4444'
-                ],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                },
-                tooltip: {
-                    backgroundColor: 'rgba(19, 24, 41, 0.95)',
-                    titleColor: darkTheme.titleColor,
-                    bodyColor: darkTheme.textColor,
-                    borderColor: darkTheme.primaryColor,
-                    borderWidth: 1,
-                    callbacks: {
-                        label: function(context) {
-                            const value = context.parsed.y;
-                            const changeType = value >= 0 ? 'Accretion' : 'Erosion';
-                            return `Average: ${value.toFixed(3)} m (${changeType})`;
-                        }
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Elevation Change (m)',
-                        font: { size: 12, weight: 'bold' },
-                        color: darkTheme.primaryColor
-                    },
-                    ticks: {
-                        color: darkTheme.textColor
-                    },
-                    grid: {
-                        color: darkTheme.gridColor
-                    }
-                },
-                x: {
-                    ticks: {
-                        color: darkTheme.textColor
-                    },
-                    grid: {
-                        display: false
-                    }
-                }
-            }
-        }
+    const labels = portFairyData.timeSeriesData.map((d, i) => {
+        const year = formatDate(d.endDate);
+        if (i === 0) return year;
+        const prevYear = formatDate(portFairyData.timeSeriesData[i-1].endDate);
+        return year !== prevYear ? year : '';
     });
-}
-
-// Wave-Morphology Correlation Chart - REAL DATA
-function createWaveChart() {
-    const ctx = document.getElementById('waveChart').getContext('2d');
     
-    // Extract real wave-MEC correlation data
-    const correlationData = portFairyData.timeSeriesData
-        .filter(d => d.maxWaveHeight !== null)
-        .map(d => ({
-            x: d.maxWaveHeight,
-            y: d.mec
-        }));
+    const p99Wave = portFairyData.timeSeriesData.map(d => d.p99WaveHeight);
+    const maxWave = portFairyData.timeSeriesData.map(d => d.maxWaveHeight);
+    const meanWave = portFairyData.timeSeriesData.map(d => d.meanWaveHeight);
     
-    new Chart(ctx, {
-        type: 'scatter',
+    const chart = new Chart(ctx, {
+        type: 'line',
         data: {
+            labels: labels,
             datasets: [{
-                label: 'Wave Height vs MEC',
-                data: correlationData,
-                backgroundColor: 'rgba(0, 212, 255, 0.6)',
-                borderColor: darkTheme.primaryColor,
+                label: '99th Percentile',
+                data: p99Wave,
+                borderColor: darkTheme.secondaryColor,
                 borderWidth: 2,
-                pointRadius: 6,
-                pointHoverRadius: 9,
-                pointHoverBackgroundColor: darkTheme.secondaryColor,
-                pointHoverBorderColor: '#fff'
+                pointRadius: 3,
+                fill: false
+            }, {
+                label: 'Maximum',
+                data: maxWave,
+                borderColor: darkTheme.erosionColor,
+                borderWidth: 2,
+                pointRadius: 3,
+                borderDash: [5, 5],
+                fill: false
+            }, {
+                label: 'Mean',
+                data: meanWave,
+                borderColor: darkTheme.accretionColor,
+                borderWidth: 1.5,
+                pointRadius: 2,
+                borderDash: [2, 2],
+                fill: false
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                title: {
-                    display: true,
-                    text: 'Maximum Wave Height vs Mean Elevation Change',
-                    font: { size: 16, weight: 'bold' },
-                    color: darkTheme.titleColor
-                },
                 legend: {
                     display: true,
                     position: 'top',
@@ -389,48 +277,36 @@ function createWaveChart() {
                     titleColor: darkTheme.titleColor,
                     bodyColor: darkTheme.textColor,
                     borderColor: darkTheme.primaryColor,
-                    borderWidth: 1,
-                    callbacks: {
-                        label: function(context) {
-                            return [
-                                `Wave Height: ${context.parsed.x.toFixed(2)} m`,
-                                `MEC: ${context.parsed.y.toFixed(3)} m`,
-                                context.parsed.y >= 0 ? 'Accretion' : 'Erosion'
-                            ];
-                        }
-                    }
+                    borderWidth: 1
                 }
             },
             scales: {
                 y: {
                     title: {
                         display: true,
-                        text: 'Mean Elevation Change (m)',
+                        text: 'Wave Height (m)',
                         font: { size: 14, weight: 'bold' },
-                        color: darkTheme.primaryColor
+                        color: darkTheme.secondaryColor
                     },
-                    ticks: {
-                        color: darkTheme.textColor
-                    },
-                    grid: {
-                        color: darkTheme.gridColor
-                    }
+                    ticks: { color: darkTheme.textColor },
+                    grid: { color: darkTheme.gridColor }
                 },
                 x: {
                     title: {
                         display: true,
-                        text: 'Maximum Wave Height (m)',
+                        text: 'Year',
                         font: { size: 14, weight: 'bold' },
-                        color: darkTheme.secondaryColor
-                    },
-                    ticks: {
                         color: darkTheme.textColor
                     },
-                    grid: {
-                        color: darkTheme.gridColor
-                    }
+                    ticks: {
+                        autoSkip: false,
+                        color: darkTheme.textColor
+                    },
+                    grid: { display: false }
                 }
             }
         }
     });
+    
+    chartInstances.push(chart);
 }
