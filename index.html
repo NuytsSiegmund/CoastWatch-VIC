@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoastWatch Victoria | Coastal Monitoring Data Analytics</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
     <style>
@@ -211,7 +212,7 @@
     
     <div class="breadcrumb" id="breadcrumb">
         <div class="container">
-            <a onclick="showOverview()">Victoria Overview</a>
+            <a id="breadcrumb-link">Victoria Overview</a>
             <span>›</span>
             <span id="current-site-name"></span>
         </div>
@@ -296,7 +297,7 @@
     
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="data.js"></script>
-    <script src="map.js"></script>
     <script src="charts.js"></script>
+    <script src="map.js"></script>
 </body>
 </html>
