@@ -7,8 +7,8 @@ const victorianSites = [
     {
         "id": "port-fairy",
         "name": "Port Fairy",
-        "lat": 142.245636,
-        "lon": -38.3750687,
+        "lat": -38.3750687,
+        "lon": 142.245636,
         "active": true,
         "surveys": 69,
         "firstSurvey": "2018",
@@ -17,8 +17,8 @@ const victorianSites = [
     {
         "id": "inverloch",
         "name": "Inverloch",
-        "lat": 145.7277069,
-        "lon": -38.6369057,
+        "lat": -38.6369057,
+        "lon": 145.7277069,
         "active": false,
         "surveys": 69,
         "firstSurvey": "2018",
@@ -27,8 +27,8 @@ const victorianSites = [
     {
         "id": "cowes",
         "name": "Cowes",
-        "lat": 145.2403107,
-        "lon": -38.4479675,
+        "lat": -38.4479675,
+        "lon": 145.2403107,
         "active": false,
         "surveys": 58,
         "firstSurvey": "2018",
@@ -37,8 +37,8 @@ const victorianSites = [
     {
         "id": "anglesea---demons-bluff",
         "name": "Anglesea - Demons Bluff",
-        "lat": 144.1994629,
-        "lon": -38.4068336,
+        "lat": -38.4068336,
+        "lon": 144.1994629,
         "active": false,
         "surveys": 61,
         "firstSurvey": "2018",
@@ -47,8 +47,8 @@ const victorianSites = [
     {
         "id": "portarlington",
         "name": "Portarlington",
-        "lat": 144.6522217,
-        "lon": -38.1131058,
+        "lat": -38.1131058,
+        "lon": 144.6522217,
         "active": false,
         "surveys": 50,
         "firstSurvey": "2018",
@@ -57,8 +57,8 @@ const victorianSites = [
     {
         "id": "aireys-inlet",
         "name": "Aireys Inlet",
-        "lat": 144.1105194,
-        "lon": -38.4608727,
+        "lat": -38.4608727,
+        "lon": 144.1105194,
         "active": false,
         "surveys": 9,
         "firstSurvey": "2022",
@@ -67,8 +67,8 @@ const victorianSites = [
     {
         "id": "altona",
         "name": "Altona",
-        "lat": 144.8294678,
-        "lon": -37.8706856,
+        "lat": -37.8706856,
+        "lon": 144.8294678,
         "active": false,
         "surveys": 30,
         "firstSurvey": "2022",
@@ -77,8 +77,8 @@ const victorianSites = [
     {
         "id": "altona-coastal-park",
         "name": "Altona Coastal Park",
-        "lat": 144.8632812,
-        "lon": -37.8604698,
+        "lat": -37.8604698,
+        "lon": 144.8632812,
         "active": false,
         "surveys": 6,
         "firstSurvey": "2024",
@@ -87,8 +87,8 @@ const victorianSites = [
     {
         "id": "anglesea---point-roadknight",
         "name": "Anglesea - Point Roadknight",
-        "lat": 144.1810608,
-        "lon": -38.4183807,
+        "lat": -38.4183807,
+        "lon": 144.1810608,
         "active": false,
         "surveys": 60,
         "firstSurvey": "2018",
@@ -97,8 +97,8 @@ const victorianSites = [
     {
         "id": "apollo-bay",
         "name": "Apollo Bay",
-        "lat": 143.6710815,
-        "lon": -38.7482643,
+        "lat": -38.7482643,
+        "lon": 143.6710815,
         "active": false,
         "surveys": 86,
         "firstSurvey": "2018",
@@ -107,8 +107,8 @@ const victorianSites = [
     {
         "id": "bells-beach",
         "name": "Bells Beach",
-        "lat": 144.2708893,
-        "lon": -38.3752747,
+        "lat": -38.3752747,
+        "lon": 144.2708893,
         "active": false,
         "surveys": 22,
         "firstSurvey": "2022",
@@ -117,8 +117,8 @@ const victorianSites = [
     {
         "id": "blairgowrie",
         "name": "Blairgowrie",
-        "lat": 144.7676086,
-        "lon": -38.3566513,
+        "lat": -38.3566513,
+        "lon": 144.7676086,
         "active": false,
         "surveys": 35,
         "firstSurvey": "2020",
@@ -127,8 +127,8 @@ const victorianSites = [
     {
         "id": "dromana-mccrae",
         "name": "Dromana/McCrae",
-        "lat": 144.946579,
-        "lon": -38.3404884,
+        "lat": -38.3404884,
+        "lon": 144.946579,
         "active": false,
         "surveys": 37,
         "firstSurvey": "2020",
@@ -137,8 +137,8 @@ const victorianSites = [
     {
         "id": "eastern-view",
         "name": "Eastern View",
-        "lat": 144.0600891,
-        "lon": -38.470211,
+        "lat": -38.470211,
+        "lon": 144.0600891,
         "active": false,
         "surveys": 26,
         "firstSurvey": "2021",
@@ -147,8 +147,8 @@ const victorianSites = [
     {
         "id": "flinders",
         "name": "Flinders",
-        "lat": 145.0257263,
-        "lon": -38.4772873,
+        "lat": -38.4772873,
+        "lon": 145.0257263,
         "active": false,
         "surveys": 11,
         "firstSurvey": "2022",
@@ -157,8 +157,8 @@ const victorianSites = [
     {
         "id": "frankston",
         "name": "Frankston",
-        "lat": 145.1136932,
-        "lon": -38.1503868,
+        "lat": -38.1503868,
+        "lon": 145.1136932,
         "active": false,
         "surveys": 1,
         "firstSurvey": "2018",
@@ -167,8 +167,8 @@ const victorianSites = [
     {
         "id": "intented-head",
         "name": "Intented Head",
-        "lat": 144.6948547,
-        "lon": -38.1228065,
+        "lat": -38.1228065,
+        "lon": 144.6948547,
         "active": false,
         "surveys": 1,
         "firstSurvey": "2022",
@@ -177,8 +177,8 @@ const victorianSites = [
     {
         "id": "jan-juc",
         "name": "Jan Juc",
-        "lat": 144.3000488,
-        "lon": -38.3507042,
+        "lat": -38.3507042,
+        "lon": 144.3000488,
         "active": false,
         "surveys": 15,
         "firstSurvey": "2021",
@@ -187,8 +187,8 @@ const victorianSites = [
     {
         "id": "kennett-river",
         "name": "Kennett River",
-        "lat": 143.8634644,
-        "lon": -38.6682129,
+        "lat": -38.6682129,
+        "lon": 143.8634644,
         "active": false,
         "surveys": 13,
         "firstSurvey": "2021",
@@ -197,8 +197,8 @@ const victorianSites = [
     {
         "id": "killarney",
         "name": "Killarney",
-        "lat": 142.3132019,
-        "lon": -38.3568039,
+        "lat": -38.3568039,
+        "lon": 142.3132019,
         "active": false,
         "surveys": 2,
         "firstSurvey": "2014",
@@ -207,8 +207,8 @@ const victorianSites = [
     {
         "id": "lorne",
         "name": "Lorne",
-        "lat": 143.9770508,
-        "lon": -38.5408478,
+        "lat": -38.5408478,
+        "lon": 143.9770508,
         "active": false,
         "surveys": 13,
         "firstSurvey": "2021",
@@ -217,8 +217,8 @@ const victorianSites = [
     {
         "id": "marengo",
         "name": "Marengo",
-        "lat": 143.6646423,
-        "lon": -38.7717857,
+        "lat": -38.7717857,
+        "lon": 143.6646423,
         "active": false,
         "surveys": 66,
         "firstSurvey": "2018",
@@ -227,8 +227,8 @@ const victorianSites = [
     {
         "id": "mornington---beleura-cliff",
         "name": "Mornington - Beleura Cliff",
-        "lat": 145.0581055,
-        "lon": -38.2032661,
+        "lat": -38.2032661,
+        "lon": 145.0581055,
         "active": false,
         "surveys": 3,
         "firstSurvey": "2022",
@@ -237,8 +237,8 @@ const victorianSites = [
     {
         "id": "mornington---fishermans-beach",
         "name": "Mornington - Fishermans Beach",
-        "lat": 145.0308685,
-        "lon": -38.2243195,
+        "lat": -38.2243195,
+        "lon": 145.0308685,
         "active": false,
         "surveys": 3,
         "firstSurvey": "2022",
@@ -247,8 +247,8 @@ const victorianSites = [
     {
         "id": "mornington---shire-hall-beach",
         "name": "Mornington - Shire Hall Beach",
-        "lat": 145.0368805,
-        "lon": -38.2146378,
+        "lat": -38.2146378,
+        "lon": 145.0368805,
         "active": false,
         "surveys": 2,
         "firstSurvey": "2022",
@@ -257,8 +257,8 @@ const victorianSites = [
     {
         "id": "mount-eliza",
         "name": "Mount Eliza",
-        "lat": 145.0861359,
-        "lon": -38.1675529,
+        "lat": -38.1675529,
+        "lon": 145.0861359,
         "active": false,
         "surveys": 11,
         "firstSurvey": "2022",
@@ -267,8 +267,8 @@ const victorianSites = [
     {
         "id": "mount-martha",
         "name": "Mount Martha",
-        "lat": 145.0119171,
-        "lon": -38.2676048,
+        "lat": -38.2676048,
+        "lon": 145.0119171,
         "active": false,
         "surveys": 49,
         "firstSurvey": "2019",
@@ -277,8 +277,8 @@ const victorianSites = [
     {
         "id": "ocean-grove",
         "name": "Ocean Grove",
-        "lat": 144.5236511,
-        "lon": -38.2715683,
+        "lat": -38.2715683,
+        "lon": 144.5236511,
         "active": false,
         "surveys": 55,
         "firstSurvey": "2019",
@@ -287,8 +287,8 @@ const victorianSites = [
     {
         "id": "patterson-river",
         "name": "Patterson River",
-        "lat": 145.1199646,
-        "lon": -38.0723991,
+        "lat": -38.0723991,
+        "lon": 145.1199646,
         "active": false,
         "surveys": 33,
         "firstSurvey": "2021",
@@ -297,8 +297,8 @@ const victorianSites = [
     {
         "id": "point-impossible",
         "name": "Point Impossible",
-        "lat": 144.3787384,
-        "lon": -38.3034286,
+        "lat": -38.3034286,
+        "lon": 144.3787384,
         "active": false,
         "surveys": 10,
         "firstSurvey": "2019",
@@ -307,8 +307,8 @@ const victorianSites = [
     {
         "id": "point-lonsdale-queenscliff",
         "name": "Point Lonsdale/Queenscliff",
-        "lat": 144.6244965,
-        "lon": -38.2745667,
+        "lat": -38.2745667,
+        "lon": 144.6244965,
         "active": false,
         "surveys": 57,
         "firstSurvey": "2018",
@@ -317,8 +317,8 @@ const victorianSites = [
     {
         "id": "portland---dutton-way",
         "name": "Portland - Dutton Way",
-        "lat": 141.6412048,
-        "lon": -38.2900314,
+        "lat": -38.2900314,
+        "lon": 141.6412048,
         "active": false,
         "surveys": 47,
         "firstSurvey": "2018",
@@ -327,8 +327,8 @@ const victorianSites = [
     {
         "id": "portsea",
         "name": "Portsea",
-        "lat": 144.7153473,
-        "lon": -38.3191338,
+        "lat": -38.3191338,
+        "lon": 144.7153473,
         "active": false,
         "surveys": 22,
         "firstSurvey": "2022",
@@ -337,8 +337,8 @@ const victorianSites = [
     {
         "id": "rye",
         "name": "Rye",
-        "lat": 144.825531,
-        "lon": -38.3698349,
+        "lat": -38.3698349,
+        "lon": 144.825531,
         "active": false,
         "surveys": 8,
         "firstSurvey": "2022",
@@ -347,8 +347,8 @@ const victorianSites = [
     {
         "id": "sandringham",
         "name": "Sandringham",
-        "lat": 145.0032806,
-        "lon": -37.9523888,
+        "lat": -37.9523888,
+        "lon": 145.0032806,
         "active": false,
         "surveys": 34,
         "firstSurvey": "2020",
@@ -357,8 +357,8 @@ const victorianSites = [
     {
         "id": "sandy-point",
         "name": "Sandy Point",
-        "lat": 144.8964386,
-        "lon": -37.847393,
+        "lat": -37.847393,
+        "lon": 144.8964386,
         "active": false,
         "surveys": 6,
         "firstSurvey": "2024",
@@ -367,8 +367,8 @@ const victorianSites = [
     {
         "id": "seaspray",
         "name": "Seaspray",
-        "lat": 147.1900482,
-        "lon": -38.3776932,
+        "lat": -38.3776932,
+        "lon": 147.1900482,
         "active": false,
         "surveys": 52,
         "firstSurvey": "2018",
@@ -377,8 +377,8 @@ const victorianSites = [
     {
         "id": "skenes-creek",
         "name": "Skenes Creek",
-        "lat": 143.7122803,
-        "lon": -38.7251892,
+        "lat": -38.7251892,
+        "lon": 143.7122803,
         "active": false,
         "surveys": 2,
         "firstSurvey": "2018",
@@ -387,8 +387,8 @@ const victorianSites = [
     {
         "id": "st-leonards",
         "name": "St Leonards",
-        "lat": 144.716095,
-        "lon": -38.1592064,
+        "lat": -38.1592064,
+        "lon": 144.716095,
         "active": false,
         "surveys": 58,
         "firstSurvey": "2018",
@@ -397,8 +397,8 @@ const victorianSites = [
     {
         "id": "summerlands-beach",
         "name": "Summerlands Beach",
-        "lat": 145.1541138,
-        "lon": -38.5093765,
+        "lat": -38.5093765,
+        "lon": 145.1541138,
         "active": false,
         "surveys": 12,
         "firstSurvey": "2017",
@@ -407,8 +407,8 @@ const victorianSites = [
     {
         "id": "torquay",
         "name": "Torquay",
-        "lat": 144.3281708,
-        "lon": -38.3266945,
+        "lat": -38.3266945,
+        "lon": 144.3281708,
         "active": false,
         "surveys": 19,
         "firstSurvey": "2019",
@@ -417,8 +417,8 @@ const victorianSites = [
     {
         "id": "walkerville",
         "name": "Walkerville",
-        "lat": 145.9983521,
-        "lon": -38.8458061,
+        "lat": -38.8458061,
+        "lon": 145.9983521,
         "active": false,
         "surveys": 13,
         "firstSurvey": "2022",
@@ -427,8 +427,8 @@ const victorianSites = [
     {
         "id": "warrnambool",
         "name": "Warrnambool",
-        "lat": 142.4815674,
-        "lon": -38.3938942,
+        "lat": -38.3938942,
+        "lon": 142.4815674,
         "active": false,
         "surveys": 67,
         "firstSurvey": "2014",
@@ -437,8 +437,8 @@ const victorianSites = [
     {
         "id": "wye-river",
         "name": "Wye River",
-        "lat": 143.8924103,
-        "lon": -38.6354446,
+        "lat": -38.6354446,
+        "lon": 143.8924103,
         "active": false,
         "surveys": 25,
         "firstSurvey": "2021",
@@ -457,7 +457,20 @@ const siteStats = {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-    initOverviewMap();
+    console.log('DOM loaded, initializing overview map...');
+    console.log('Victorian sites loaded:', victorianSites ? victorianSites.length : 'undefined');
+    
+    if (typeof victorianSites === 'undefined') {
+        console.error('ERROR: victorianSites not defined!');
+        return;
+    }
+    
+    try {
+        initOverviewMap();
+        console.log('Overview map initialized successfully');
+    } catch (error) {
+        console.error('Error initializing overview map:', error);
+    }
 });
 
 // Show overview
@@ -502,6 +515,7 @@ function showSiteDetails(siteId) {
 
 // Initialize overview map
 function initOverviewMap() {
+    console.log('Creating overview map...');
     // Center on Victoria, zoom to show all sites
     overviewMap = L.map('overview-map').setView([-37.8, 143.5], 6);
     
@@ -509,6 +523,8 @@ function initOverviewMap() {
         attribution: 'Tiles &copy; Esri',
         maxZoom: 18
     }).addTo(overviewMap);
+    
+    console.log(`Adding ${victorianSites.length} site markers...`);
     
     // Add site markers
     victorianSites.forEach(site => {
@@ -720,6 +736,13 @@ function loadSiteContent(site) {
 
 // Initialize detail map
 function initDetailMap() {
+    if (typeof portFairyData === 'undefined') {
+        console.error('ERROR: portFairyData not loaded!');
+        document.getElementById('map').innerHTML = '<div style="padding: 2rem; text-align: center; color: #ef4444;">Error: Data not loaded. Please refresh the page.</div>';
+        return;
+    }
+    
+    console.log('Initializing detail map for Port Fairy...');
     detailMap = L.map('map').setView(portFairyData.studyArea.center, portFairyData.studyArea.zoom);
     
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
