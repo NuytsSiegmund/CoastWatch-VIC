@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CoastWatch Victoria | Coastal Monitoring Data Analytics</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Interactive platform for Victorian coastal monitoring data analysis. Combining UAV photogrammetry with wave measurements across 44 VCMP sites.">
+    
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    
     <style>
         :root {
             --dark-bg: #0a0e27;
@@ -14,18 +19,26 @@
             --primary: #00d4ff;
             --primary-glow: rgba(0, 212, 255, 0.3);
             --secondary: #7c3aed;
+            --accent: #f59e0b;
             --text-primary: #e5e7eb;
             --text-secondary: #9ca3af;
             --border: #1f2937;
+            --erosion: #ef4444;
+            --accretion: #10b981;
+            --neutral: #fbbf24;
         }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
             background: var(--dark-bg);
         }
+        
         .container { max-width: 1600px; margin: 0 auto; padding: 0 20px; }
+        
         header {
             background: linear-gradient(135deg, var(--darker-bg) 0%, var(--card-bg) 100%);
             border-bottom: 2px solid var(--primary);
@@ -51,7 +64,9 @@
             background-clip: text;
             margin-bottom: 0.5rem;
         }
-        header .subtitle { font-size: 1.1rem; color: var(--text-secondary); }
+        header .subtitle { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 0.3rem; }
+        header .meta { font-size: 0.95rem; color: var(--primary); font-weight: 500; }
+        
         .breadcrumb {
             background: var(--card-bg);
             padding: 1rem 0;
@@ -63,9 +78,41 @@
             color: var(--primary);
             text-decoration: none;
             cursor: pointer;
+            transition: color 0.3s;
         }
         .breadcrumb a:hover { color: var(--secondary); }
         .breadcrumb span { color: var(--text-secondary); margin: 0 0.5rem; }
+        
+        nav {
+            background: var(--card-bg);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        nav a:hover {
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.1);
+        }
+        
         section {
             background: var(--card-bg);
             margin: 2rem 0;
@@ -74,6 +121,7 @@
             border: 1px solid var(--border);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
+        
         h2 {
             color: var(--primary);
             font-size: 2rem;
@@ -88,12 +136,39 @@
             margin-top: 2rem;
             margin-bottom: 1rem;
         }
-        #map {
-            height: 600px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
         }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid var(--primary);
+            margin-bottom: 2rem;
+        }
+        .highlight-box h3 { color: var(--primary); margin-top: 0; }
+        
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .finding-card {
+            background: var(--darker-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--erosion);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .finding-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+        
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -108,14 +183,31 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
         }
         .stat-card::before {
             content: '';
             position: absolute;
-            top: 0; left: 0;
-            width: 100%;
+            top: 0; left: 0; right: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        .stat-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .stat-card h3 {
             color: var(--primary);
@@ -135,10 +227,84 @@
             font-size: 0.9rem;
             margin-top: 0.3rem;
         }
-        .chart-container {
-            position: relative;
-            height: 450px;
+        
+        .methodology-flow {
+            background: var(--darker-bg);
+            padding: 2rem;
+            border-radius: 10px;
             margin: 2rem 0;
+            border: 1px solid var(--border);
+        }
+        .flow-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+        .flow-step {
+            text-align: center;
+            max-width: 180px;
+            flex: 1;
+            min-width: 150px;
+        }
+        .flow-step-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+        .flow-step strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .flow-step p { font-size: 0.9rem; color: var(--text-secondary); }
+        .flow-arrow {
+            font-size: 2rem;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+        
+        #map, #overview-map {
+            height: 650px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+        #overview-map { height: 600px; }
+        
+        .legend {
+            background: var(--darker-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            border: 1px solid var(--border);
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 0.8rem 0;
+            gap: 1rem;
+        }
+        .legend-color {
+            width: 40px;
+            height: 20px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+        
+        .chart-container {
+            height: 400px;
+            margin: 2rem 0;
+            background: var(--darker-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .analysis-card {
             background: var(--darker-bg);
             padding: 1.5rem;
             border-radius: 8px;
@@ -148,56 +314,87 @@
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
             border-left: 4px solid var(--primary);
             padding: 1.5rem;
+            margin: 2rem 0;
             border-radius: 6px;
-            margin: 1rem 0;
         }
         .info-box p { color: var(--text-secondary); line-height: 1.8; }
+        
         .data-source {
             background: var(--darker-bg);
-            border: 1px solid var(--primary);
             padding: 1rem;
             border-radius: 6px;
-            margin: 1rem 0;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid var(--accent);
         }
         .data-source strong { color: var(--primary); }
-        .data-source a {
-            color: var(--primary);
-            text-decoration: none;
-        }
+        .data-source a { color: var(--primary); text-decoration: none; }
         .data-source a:hover { text-decoration: underline; }
+        
+        .method-list { list-style: none; padding-left: 0; }
+        .method-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+        }
+        .method-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        code {
+            background: var(--darker-bg);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--primary);
+            font-family: 'Courier New', monospace;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            margin-right: 1rem;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+        }
+        
         .hidden { display: none !important; }
+        
         footer {
             background: var(--darker-bg);
-            color: var(--text-secondary);
-            text-align: center;
             padding: 2rem 0;
+            text-align: center;
             margin-top: 3rem;
-            border-top: 2px solid var(--border);
+            border-top: 2px solid var(--primary);
         }
-        footer a {
-            color: var(--primary);
-            text-decoration: none;
-        }
+        footer a { color: var(--primary); text-decoration: none; }
         footer a:hover { text-decoration: underline; }
-        .legend {
-            background: var(--darker-bg);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            border: 1px solid var(--border);
-        }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 0.5rem 0;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        .legend-color {
-            width: 30px;
-            height: 20px;
-            border-radius: 4px;
+        
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            nav ul { gap: 0.5rem; }
+            nav a { padding: 0.4rem 0.8rem; font-size: 0.9rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .analysis-grid { grid-template-columns: 1fr; }
+            #map, #overview-map { height: 400px; }
+            .chart-container { height: 300px; }
+            .flow-container { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
         }
     </style>
 </head>
@@ -205,7 +402,8 @@
     <header>
         <div class="container">
             <h1>CoastWatch Victoria</h1>
-            <p class="subtitle">Coastal Monitoring Data Analytics Platform</p>
+            <p class="subtitle" id="header-subtitle">Coastal Monitoring Data Analytics Platform</p>
+            <p class="meta hidden" id="header-meta"></p>
         </div>
     </header>
     
@@ -216,6 +414,17 @@
             <span id="current-site-name"></span>
         </div>
     </div>
+    
+    <nav id="site-nav" class="hidden">
+        <ul>
+            <li><a onclick="scrollToSection('overview')">Overview</a></li>
+            <li><a onclick="scrollToSection('map-section')">Interactive Map</a></li>
+            <li><a onclick="scrollToSection('analytics')">Analytics</a></li>
+            <li><a onclick="scrollToSection('wave-analysis')">Wave Correlation</a></li>
+            <li><a onclick="scrollToSection('methodology')">Methodology</a></li>
+            <li><a onclick="scrollToSection('publication')">Publication</a></li>
+        </ul>
+    </nav>
     
     <div class="container">
         <!-- LEVEL 1: Victoria Overview -->
@@ -253,9 +462,9 @@
             <section>
                 <h2>Monitoring Sites Across Victoria</h2>
                 <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                    Click on a site marker to view detailed coastal change analysis. Active sites show comprehensive data; upcoming sites are in development.
+                    Click on a site marker to view detailed coastal change analysis. <strong style="color: var(--primary);">Port Fairy</strong> shows comprehensive 7-year analysis; other sites display available data summaries.
                 </p>
-                <div id="overview-map" style="height: 600px; border-radius: 8px; border: 1px solid var(--border);"></div>
+                <div id="overview-map"></div>
                 
                 <div class="stats-grid" style="margin-top: 2rem;">
                     <div class="stat-card">
@@ -266,7 +475,7 @@
                     <div class="stat-card">
                         <p class="label">Active Analysis</p>
                         <h3>1</h3>
-                        <p class="value-detail">Port Fairy</p>
+                        <p class="value-detail">Port Fairy (7 years)</p>
                     </div>
                     <div class="stat-card">
                         <p class="label">Total Survey Campaigns</p>
@@ -279,6 +488,18 @@
                         <p class="value-detail">km Statewide</p>
                     </div>
                 </div>
+                
+                <div class="legend">
+                    <h4 style="color: var(--primary); margin-bottom: 0.8rem;">Site Status</h4>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #00d4ff;"></div>
+                        <span><strong>Active Analysis</strong> - Comprehensive data available (Port Fairy)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #9ca3af;"></div>
+                        <span><strong>VCMP Monitoring</strong> - Data collection in progress</span>
+                    </div>
+                </div>
             </section>
         </div>
         
@@ -288,15 +509,16 @@
     
     <footer>
         <div class="container">
-            <p>&copy; 2026 CoastWatch Victoria | Victorian Coastal Monitoring Program</p>
-            <p style="margin-top: 0.5rem;">Data: University of Melbourne & Deakin University | Wave Data: AusWaves</p>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Developed by Dr. Siegmund Nuyts | <a href="https://github.com/NuytsSiegmund/CoastWatch-VIC">GitHub Repository</a></p>
+            <p>&copy; 2025 CoastWatch Victoria | Victorian Coastal Monitoring Program</p>
+            <p style="margin-top: 0.5rem;">Data: Bush Heritage Australia & Deakin University | Wave Data: AusWaves</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Developed by Siegmund Nuyts | <a href="https://github.com/NuytsSiegmund/CoastWatch-VIC">GitHub Repository</a></p>
         </div>
     </footer>
     
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="vcmp-sites.js"></script>
     <script src="data.js"></script>
-    <script src="map.js"></script>
+    <script src="app.js"></script>
     <script src="charts.js"></script>
 </body>
 </html>
