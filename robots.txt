@@ -1,0 +1,6 @@
+# CoastWatch Victoria - Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap location (update when sitemap is created)
+# Sitemap: https://yourdomain.com/sitemap.xml
