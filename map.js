@@ -591,15 +591,15 @@ function loadSiteContent(site) {
             
             <h3>Site Overview</h3>
             <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem;">
-                Port Fairy Bay represents a critical case study in understanding how sandy beaches respond to climate-driven pressures and coastal engineering interventions. Seven years of high-resolution monitoring (2018–2025) reveal complex patterns of vulnerability that vary across the beach profile, with important implications for coastal management under accelerating sea level rise.
+                Port Fairy represents a case study in understanding how sandy beaches respond to climate-driven pressures and coastal engineering interventions. Seven years of high-resolution monitoring (2018–2025) reveal complex patterns of vulnerability that vary across the beach profile, with important implications for coastal management under accelerating sea level rise.
             </p>
             
             <div class="info-box">
-                <p style="margin-bottom: 1rem;"><strong>Cross-Shore Vulnerability Gradient:</strong> Our analysis identifies distinct behavioral zones across the beach profile. Supratidal areas (above 0.47 m AHD) experience persistent erosion strongly driven by extreme wave conditions, while lower intertidal zones remain more stable. This elevation-dependent vulnerability means that different parts of the beach face different levels of climate risk.</p>
+                <p style="margin-bottom: 1rem;"><strong>Cross-Shore Vulnerability Gradient:</strong> The analysis identifies distinct behavioural zones across the beach profile. Supratidal areas (above 0.47 m AHD) experience persistent erosion strongly driven by extreme wave conditions, while lower intertidal zones remain more stable. This elevation-dependent vulnerability means that different parts of the beach face different levels of climate risk.</p>
                 
-                <p style="margin-bottom: 1rem;"><strong>Wave Forcing Thresholds:</strong> Statistical analysis reveals that wave heights exceeding 4.6 m mark a critical threshold—below this, beaches tend to accrete; above it, erosion dominates. When extreme waves persist for more than 30 hours, upper beach elevations can drop by over 40 cm in a single event. Understanding these thresholds enables early warning and proactive response.</p>
+                <p style="margin-bottom: 1rem;"><strong>Wave Forcing Thresholds:</strong> Statistical analysis reveals that wave heights exceeding 4.6 m mark a critical threshold. Below this threshold, Port Fairy tends to show local sediment transport; above it, erosion dominates throughout the whole embayment.  Understanding these thresholds enables early warning and proactive response.</p>
                 
-                <p style="margin-bottom: 1rem;"><strong>Impacts of Rock Armour:</strong> Coastal protection structures at Port Fairy demonstrate how hard engineering can disrupt natural sediment transport. Rock armour creates zones of persistent erosion extending up to 200 m along the coast and shifts sand from upper to lower beach areas. Under projected sea level rise, these effects will intensify as structures prevent beaches from naturally retreating landward—a phenomenon known as "coastal squeeze."</p>
+                <p style="margin-bottom: 1rem;"><strong>Impacts of Rock Armour:</strong> Coastal protection structures at Port Fairy demonstrate how hard engineering can disrupt natural sediment transport. Rock armour creates zones of persistent erosion extending up to 200 m along the coast and shifts sand from upper to lower beach areas. Under projected sea level rise, these effects will intensify as structures prevent beaches from naturally retreating landward. A phenomenon known as "coastal squeeze."</p>
                 
                 <p><strong>Management Implications:</strong> The quantitative vulnerability framework developed here provides coastal managers with evidence-based thresholds for intervention timing, spatial prioritization of limited resources, and evaluation of engineering alternatives. This approach is transferable to data-limited coastlines globally seeking sustainable management strategies under climate change.</p>
             </div>
@@ -698,24 +698,32 @@ function loadSiteContent(site) {
             </div>
             
             <div class="info-box">
-                <p><strong>Statistical Significance:</strong> Analysis reveals strong negative correlation between wave height and beach elevation (supratidal: r = -0.714, p < 0.001; intertidal: r = -0.301, p = 0.038). When wave heights exceed 4.6 m for more than 30 hours, upper beach areas experience erosion exceeding 40 cm. These thresholds provide quantitative triggers for coastal hazard response.</p>
+                <p><strong>Statistical Significance:</strong> Analysis reveals strong negative correlation between wave height and beach elevation (supratidal: r = -0.714, p < 0.001; intertidal: r = -0.301, p = 0.038). These thresholds provide quantitative triggers for coastal hazard response.</p>
             </div>
         </section>
         
         <section>
             <h2>Scientific Studies</h2>
             <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-                Research publications based on Port Fairy Bay monitoring data.
+                Research publications based on Port Fairy monitoring data.
             </p>
             
             <div style="background: var(--darker-bg); border: 1px solid var(--border); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                <h3 style="color: var(--primary); font-size: 1.2rem; margin-top: 0;">Cross-shore vulnerability gradients and rock armour impacts on sandy beach evolution</h3>
-                <p style="color: var(--text-secondary); margin: 0.5rem 0;"><strong>Authors:</strong> Siegmund Nuyts, et al.</p>
-                <p style="color: var(--text-secondary); margin: 0.5rem 0;"><strong>Journal:</strong> Coastal Engineering (In Review, 2025)</p>
+                <h3 style="color: var(--primary); font-size: 1.2rem; margin-top: 0;">Cross-shore vulnerability and rock armour impacts on sandy beach evolution under sea level rise</h3>
+                <p style="color: var(--text-secondary); margin: 0.5rem 0;"><strong>Authors:</strong> Nuyts et al.</p>
+                <p style="color: var(--text-secondary); margin: 0.5rem 0;"><strong>Journal:</strong> Earth Surface Processes and Landforms (Under Review, 2026)</p>
                 <p style="color: var(--text-secondary); margin: 0.5rem 0;"><strong>Study Period:</strong> 2018-2025 (54 UAV surveys)</p>
                 <p style="color: var(--text-secondary); line-height: 1.7; margin-top: 1rem;">
-                    This study quantifies elevation-specific vulnerability patterns across seven years of high-resolution monitoring, revealing how supratidal zones face greater erosion risk than intertidal areas. We identify a 4.6 m wave height threshold that controls erosion/accretion transitions and demonstrate how rock armour structures create persistent downdrift erosion zones extending up to 200 m. The research provides transferable quantitative frameworks for early warning systems and evidence-based coastal management under climate change.
+                    This study uses seven years (2018–2025) of high-resolution Unmanned Aerial Vehicle (UAV) surveys and offshore wave monitoring to assess morphodynamic changes and the influence of rock armour structures on a sandy embayment at Port Fairy, Australia. We applied spatially distributed metrics, Mean Elevation Change (MEC) and residual Beachface Cluster Dynamics (r-BCD), across 54 surveys and 220 transects to quantify sediment behaviour and process-response relationships. Results reveal a distinct cross-shore vulnerability gradient: supratidal zones (>0.47 m AHD) exhibit persistent erosion strongly linked to extreme wave conditions (r = –0.714, p < 0.001), while intertidal zones remain more stable (r = –0.301, p = 0.038). A wave height threshold (4.6 m) was identified through comprehensive optimisation analysis (p < 0.001), marking the transition from accretion to erosion in supratidal areas, with prolonged exceedance (>30 hours) producing negative elevation changes exceeding -0.4 m. Rock armour disrupted sediment transport, causing downdrift erosion and flanking erosion up to 200 m from structure edges, while shifting sediment cross-shore from supratidal to intertidal zones.
                 </p>
+            </div>
+
+            <div style="background: var(--darker-bg); border: 1px solid var(--border); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <h3 style="color: var(--primary); font-size: 1.2rem; margin-top: 0;">Wave direction dominates erosion response of embayed beaches under climate change</h3>
+                <p style="color: var(--text-secondary); margin: 0.5rem 0;"><strong>Authors:</strong> Nuyts et al.</p>
+                <p style="color: var(--text-secondary); margin: 0.5rem 0;"><strong>Journal:</strong> Coastal Engineering (Under Review, 2026)</p>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-top: 1rem;">
+                    This study addresses a critical gap in understanding how climate-driven changes in wave climate will affect embayed beaches worldwide. Using a validated MIKE 21 coupled wavehydrodynamic-sediment transport model, we systematically quantify the relative influence of wave direction, wave height, and sea-level rise on storm-driven morphodynamic response at Port Fairy embayment, south-eastern Australia. Our findings reveal that wave direction exerts dominant control over coastal change, with directional shifts of just ±10° producing opposing erosion-accretion patterns that exceed the effects of doubling wave height.
             </div>
             
             <p style="color: var(--text-secondary); font-style: italic;">
