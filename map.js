@@ -2,43 +2,458 @@
 let overviewMap = null;
 let detailMap = null;
 
-// Sites configuration
+// Sites configuration - All VCMP monitoring locations
 const victorianSites = [
     {
-        id: 'port-fairy',
-        name: 'Port Fairy Bay',
-        location: 'South-western Victoria',
-        lat: -38.371,
-        lon: 142.250,
-        active: true,
-        surveys: 54,
-        period: '2018-2025'
+        "id": "port-fairy",
+        "name": "Port Fairy",
+        "lat": 142.245636,
+        "lon": -38.3750687,
+        "active": true,
+        "surveys": 69,
+        "firstSurvey": "2018",
+        "coastlineKm": 5.6
     },
     {
-        id: 'apollo-bay',
-        name: 'Apollo Bay',
-        location: 'Great Ocean Road',
-        lat: -38.756,
-        lon: 143.672,
-        active: false
+        "id": "inverloch",
+        "name": "Inverloch",
+        "lat": 145.7277069,
+        "lon": -38.6369057,
+        "active": false,
+        "surveys": 69,
+        "firstSurvey": "2018",
+        "coastlineKm": 2.8
     },
     {
-        id: 'point-lonsdale',
-        name: 'Point Lonsdale',
-        location: 'Bellarine Peninsula',
-        lat: -38.291,
-        lon: 144.606,
-        active: false
+        "id": "cowes",
+        "name": "Cowes",
+        "lat": 145.2403107,
+        "lon": -38.4479675,
+        "active": false,
+        "surveys": 58,
+        "firstSurvey": "2018",
+        "coastlineKm": 4.2
     },
     {
-        id: 'inverloch',
-        name: 'Inverloch',
-        location: 'South Gippsland',
-        lat: -38.633,
-        lon: 145.683,
-        active: false
+        "id": "anglesea---demons-bluff",
+        "name": "Anglesea - Demons Bluff",
+        "lat": 144.1994629,
+        "lon": -38.4068336,
+        "active": false,
+        "surveys": 61,
+        "firstSurvey": "2018",
+        "coastlineKm": 2.6
+    },
+    {
+        "id": "portarlington",
+        "name": "Portarlington",
+        "lat": 144.6522217,
+        "lon": -38.1131058,
+        "active": false,
+        "surveys": 50,
+        "firstSurvey": "2018",
+        "coastlineKm": 4.7
+    },
+    {
+        "id": "aireys-inlet",
+        "name": "Aireys Inlet",
+        "lat": 144.1105194,
+        "lon": -38.4608727,
+        "active": false,
+        "surveys": 9,
+        "firstSurvey": "2022",
+        "coastlineKm": 3.0
+    },
+    {
+        "id": "altona",
+        "name": "Altona",
+        "lat": 144.8294678,
+        "lon": -37.8706856,
+        "active": false,
+        "surveys": 30,
+        "firstSurvey": "2022",
+        "coastlineKm": 3.3
+    },
+    {
+        "id": "altona-coastal-park",
+        "name": "Altona Coastal Park",
+        "lat": 144.8632812,
+        "lon": -37.8604698,
+        "active": false,
+        "surveys": 6,
+        "firstSurvey": "2024",
+        "coastlineKm": 1.2
+    },
+    {
+        "id": "anglesea---point-roadknight",
+        "name": "Anglesea - Point Roadknight",
+        "lat": 144.1810608,
+        "lon": -38.4183807,
+        "active": false,
+        "surveys": 60,
+        "firstSurvey": "2018",
+        "coastlineKm": 2.3
+    },
+    {
+        "id": "apollo-bay",
+        "name": "Apollo Bay",
+        "lat": 143.6710815,
+        "lon": -38.7482643,
+        "active": false,
+        "surveys": 86,
+        "firstSurvey": "2018",
+        "coastlineKm": 3.6
+    },
+    {
+        "id": "bells-beach",
+        "name": "Bells Beach",
+        "lat": 144.2708893,
+        "lon": -38.3752747,
+        "active": false,
+        "surveys": 22,
+        "firstSurvey": "2022",
+        "coastlineKm": 3.6
+    },
+    {
+        "id": "blairgowrie",
+        "name": "Blairgowrie",
+        "lat": 144.7676086,
+        "lon": -38.3566513,
+        "active": false,
+        "surveys": 35,
+        "firstSurvey": "2020",
+        "coastlineKm": 3.7
+    },
+    {
+        "id": "dromana-mccrae",
+        "name": "Dromana/McCrae",
+        "lat": 144.946579,
+        "lon": -38.3404884,
+        "active": false,
+        "surveys": 37,
+        "firstSurvey": "2020",
+        "coastlineKm": 3.5
+    },
+    {
+        "id": "eastern-view",
+        "name": "Eastern View",
+        "lat": 144.0600891,
+        "lon": -38.470211,
+        "active": false,
+        "surveys": 26,
+        "firstSurvey": "2021",
+        "coastlineKm": 6.6
+    },
+    {
+        "id": "flinders",
+        "name": "Flinders",
+        "lat": 145.0257263,
+        "lon": -38.4772873,
+        "active": false,
+        "surveys": 11,
+        "firstSurvey": "2022",
+        "coastlineKm": 2.6
+    },
+    {
+        "id": "frankston",
+        "name": "Frankston",
+        "lat": 145.1136932,
+        "lon": -38.1503868,
+        "active": false,
+        "surveys": 1,
+        "firstSurvey": "2018",
+        "coastlineKm": 0.3
+    },
+    {
+        "id": "intented-head",
+        "name": "Intented Head",
+        "lat": 144.6948547,
+        "lon": -38.1228065,
+        "active": false,
+        "surveys": 1,
+        "firstSurvey": "2022",
+        "coastlineKm": 3.5
+    },
+    {
+        "id": "jan-juc",
+        "name": "Jan Juc",
+        "lat": 144.3000488,
+        "lon": -38.3507042,
+        "active": false,
+        "surveys": 15,
+        "firstSurvey": "2021",
+        "coastlineKm": 3.0
+    },
+    {
+        "id": "kennett-river",
+        "name": "Kennett River",
+        "lat": 143.8634644,
+        "lon": -38.6682129,
+        "active": false,
+        "surveys": 13,
+        "firstSurvey": "2021",
+        "coastlineKm": 1.0
+    },
+    {
+        "id": "killarney",
+        "name": "Killarney",
+        "lat": 142.3132019,
+        "lon": -38.3568039,
+        "active": false,
+        "surveys": 2,
+        "firstSurvey": "2014",
+        "coastlineKm": 1.5
+    },
+    {
+        "id": "lorne",
+        "name": "Lorne",
+        "lat": 143.9770508,
+        "lon": -38.5408478,
+        "active": false,
+        "surveys": 13,
+        "firstSurvey": "2021",
+        "coastlineKm": 4.0
+    },
+    {
+        "id": "marengo",
+        "name": "Marengo",
+        "lat": 143.6646423,
+        "lon": -38.7717857,
+        "active": false,
+        "surveys": 66,
+        "firstSurvey": "2018",
+        "coastlineKm": 3.0
+    },
+    {
+        "id": "mornington---beleura-cliff",
+        "name": "Mornington - Beleura Cliff",
+        "lat": 145.0581055,
+        "lon": -38.2032661,
+        "active": false,
+        "surveys": 3,
+        "firstSurvey": "2022",
+        "coastlineKm": 1.5
+    },
+    {
+        "id": "mornington---fishermans-beach",
+        "name": "Mornington - Fishermans Beach",
+        "lat": 145.0308685,
+        "lon": -38.2243195,
+        "active": false,
+        "surveys": 3,
+        "firstSurvey": "2022",
+        "coastlineKm": 1.0
+    },
+    {
+        "id": "mornington---shire-hall-beach",
+        "name": "Mornington - Shire Hall Beach",
+        "lat": 145.0368805,
+        "lon": -38.2146378,
+        "active": false,
+        "surveys": 2,
+        "firstSurvey": "2022",
+        "coastlineKm": 0.9
+    },
+    {
+        "id": "mount-eliza",
+        "name": "Mount Eliza",
+        "lat": 145.0861359,
+        "lon": -38.1675529,
+        "active": false,
+        "surveys": 11,
+        "firstSurvey": "2022",
+        "coastlineKm": 5.2
+    },
+    {
+        "id": "mount-martha",
+        "name": "Mount Martha",
+        "lat": 145.0119171,
+        "lon": -38.2676048,
+        "active": false,
+        "surveys": 49,
+        "firstSurvey": "2019",
+        "coastlineKm": 2.6
+    },
+    {
+        "id": "ocean-grove",
+        "name": "Ocean Grove",
+        "lat": 144.5236511,
+        "lon": -38.2715683,
+        "active": false,
+        "surveys": 55,
+        "firstSurvey": "2019",
+        "coastlineKm": 3.7
+    },
+    {
+        "id": "patterson-river",
+        "name": "Patterson River",
+        "lat": 145.1199646,
+        "lon": -38.0723991,
+        "active": false,
+        "surveys": 33,
+        "firstSurvey": "2021",
+        "coastlineKm": 3.4
+    },
+    {
+        "id": "point-impossible",
+        "name": "Point Impossible",
+        "lat": 144.3787384,
+        "lon": -38.3034286,
+        "active": false,
+        "surveys": 10,
+        "firstSurvey": "2019",
+        "coastlineKm": 1.4
+    },
+    {
+        "id": "point-lonsdale-queenscliff",
+        "name": "Point Lonsdale/Queenscliff",
+        "lat": 144.6244965,
+        "lon": -38.2745667,
+        "active": false,
+        "surveys": 57,
+        "firstSurvey": "2018",
+        "coastlineKm": 3.5
+    },
+    {
+        "id": "portland---dutton-way",
+        "name": "Portland - Dutton Way",
+        "lat": 141.6412048,
+        "lon": -38.2900314,
+        "active": false,
+        "surveys": 47,
+        "firstSurvey": "2018",
+        "coastlineKm": 5.5
+    },
+    {
+        "id": "portsea",
+        "name": "Portsea",
+        "lat": 144.7153473,
+        "lon": -38.3191338,
+        "active": false,
+        "surveys": 22,
+        "firstSurvey": "2022",
+        "coastlineKm": 3.4
+    },
+    {
+        "id": "rye",
+        "name": "Rye",
+        "lat": 144.825531,
+        "lon": -38.3698349,
+        "active": false,
+        "surveys": 8,
+        "firstSurvey": "2022",
+        "coastlineKm": 3.2
+    },
+    {
+        "id": "sandringham",
+        "name": "Sandringham",
+        "lat": 145.0032806,
+        "lon": -37.9523888,
+        "active": false,
+        "surveys": 34,
+        "firstSurvey": "2020",
+        "coastlineKm": 3.1
+    },
+    {
+        "id": "sandy-point",
+        "name": "Sandy Point",
+        "lat": 144.8964386,
+        "lon": -37.847393,
+        "active": false,
+        "surveys": 6,
+        "firstSurvey": "2024",
+        "coastlineKm": 0.8
+    },
+    {
+        "id": "seaspray",
+        "name": "Seaspray",
+        "lat": 147.1900482,
+        "lon": -38.3776932,
+        "active": false,
+        "surveys": 52,
+        "firstSurvey": "2018",
+        "coastlineKm": 3.2
+    },
+    {
+        "id": "skenes-creek",
+        "name": "Skenes Creek",
+        "lat": 143.7122803,
+        "lon": -38.7251892,
+        "active": false,
+        "surveys": 2,
+        "firstSurvey": "2018",
+        "coastlineKm": 2.4
+    },
+    {
+        "id": "st-leonards",
+        "name": "St Leonards",
+        "lat": 144.716095,
+        "lon": -38.1592064,
+        "active": false,
+        "surveys": 58,
+        "firstSurvey": "2018",
+        "coastlineKm": 3.2
+    },
+    {
+        "id": "summerlands-beach",
+        "name": "Summerlands Beach",
+        "lat": 145.1541138,
+        "lon": -38.5093765,
+        "active": false,
+        "surveys": 12,
+        "firstSurvey": "2017",
+        "coastlineKm": 1.7
+    },
+    {
+        "id": "torquay",
+        "name": "Torquay",
+        "lat": 144.3281708,
+        "lon": -38.3266945,
+        "active": false,
+        "surveys": 19,
+        "firstSurvey": "2019",
+        "coastlineKm": 3.8
+    },
+    {
+        "id": "walkerville",
+        "name": "Walkerville",
+        "lat": 145.9983521,
+        "lon": -38.8458061,
+        "active": false,
+        "surveys": 13,
+        "firstSurvey": "2022",
+        "coastlineKm": 2.7
+    },
+    {
+        "id": "warrnambool",
+        "name": "Warrnambool",
+        "lat": 142.4815674,
+        "lon": -38.3938942,
+        "active": false,
+        "surveys": 67,
+        "firstSurvey": "2014",
+        "coastlineKm": 4.1
+    },
+    {
+        "id": "wye-river",
+        "name": "Wye River",
+        "lat": 143.8924103,
+        "lon": -38.6354446,
+        "active": false,
+        "surveys": 25,
+        "firstSurvey": "2021",
+        "coastlineKm": 1.9
     }
 ];
+
+// Calculate statistics
+const siteStats = {
+    totalSites: 44,
+    activeSites: 1,
+    inDevelopment: 43,
+    totalSurveys: 1328,
+    totalCoastline: 131.8
+};
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
@@ -87,7 +502,8 @@ function showSiteDetails(siteId) {
 
 // Initialize overview map
 function initOverviewMap() {
-    overviewMap = L.map('overview-map').setView([-37.8, 144.9], 7);
+    // Center on Victoria, zoom to show all sites
+    overviewMap = L.map('overview-map').setView([-37.8, 143.5], 6);
     
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri',
@@ -114,20 +530,31 @@ function initOverviewMap() {
         const marker = L.marker([site.lat, site.lon], { icon: icon });
         
         marker.bindPopup(`
-            <div style="background: #131829; color: #e5e7eb; padding: 0.75rem; min-width: 220px;">
+            <div style="background: #131829; color: #e5e7eb; padding: 0.75rem; min-width: 240px;">
                 <h3 style="margin: 0 0 10px 0; color: #00d4ff; font-size: 1.1rem;">${site.name}</h3>
-                <div style="font-size: 0.9rem; color: #9ca3af;">
-                    ${site.location}<br>
+                <div style="font-size: 0.9rem; color: #9ca3af; line-height: 1.6;">
                     ${site.active ? 
-                        `<strong style="color: #10b981;">● Active</strong><br>
-                         ${site.surveys} surveys | ${site.period}<br>
+                        `<strong style="color: #10b981;">● Full Analysis Available</strong><br>
+                         <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #1f2937;">
+                         <strong>Surveys:</strong> ${site.surveys}<br>
+                         <strong>Coastline:</strong> ${site.coastlineKm} km<br>
+                         <strong>Period:</strong> ${site.firstSurvey} - 2025
+                         </div>
                          <button onclick="showSiteDetails('${site.id}')" 
                                  style="background: #00d4ff; color: #0a0e27; border: none; 
                                         padding: 0.5rem 1rem; border-radius: 4px; margin-top: 0.75rem; 
                                         cursor: pointer; font-weight: 600; width: 100%;">
-                             View Details →
+                             View Full Analysis →
                          </button>` 
-                        : '<strong style="color: #f59e0b;">⏱ Coming Soon</strong>'}
+                        : `<strong style="color: #f59e0b;">⏱ Monitoring Active</strong><br>
+                           <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #1f2937;">
+                           <strong>Surveys:</strong> ${site.surveys}<br>
+                           <strong>Coastline:</strong> ${site.coastlineKm} km<br>
+                           <strong>Since:</strong> ${site.firstSurvey}
+                           </div>
+                           <p style="margin-top: 0.75rem; font-size: 0.85rem; font-style: italic;">
+                           Detailed analysis coming soon
+                           </p>`}
                 </div>
             </div>
         `);
