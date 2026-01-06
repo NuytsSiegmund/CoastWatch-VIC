@@ -2,7 +2,7 @@
 
 Interactive platform for Victorian coastal monitoring data, integrating UAV photogrammetry with wave measurements across the Victorian Coastal Monitoring Program (VCMP) network.
 
-**[View Platform](https://nuytsiegmund.github.io/CoastWatch-VIC/)** | **[VCMP Website](https://www.marineandcoasts.vic.gov.au/coastal-programs/victorian-coastal-monitoring-program)**
+**[View Platform][(https://nuytsiegmund.github.io/CoastWatch-VIC/)](https://nuytssiegmund.github.io/CoastWatch-VIC/)** | **[VCMP Website](https://www.marineandcoasts.vic.gov.au/coastal-programs/victorian-coastal-monitoring-program)**
 
 ---
 
