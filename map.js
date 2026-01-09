@@ -109,7 +109,7 @@ function initOverviewMap() {
                          <strong>Coastline:</strong> ${site.coastlineKm} km<br>
                          <strong>Period:</strong> ${site.firstSurvey} - 2025
                          </div>
-                         <button onclick="showSiteDetails('${site.id}')"
+                         <button id="view-analysis-${site.id}"
                                  style="background: #00d4ff; color: #0a0e27; border: none;
                                         padding: 0.5rem 1rem; border-radius: 4px; margin-top: 0.75rem;
                                         cursor: pointer; font-weight: 600; width: 100%;">
@@ -128,8 +128,14 @@ function initOverviewMap() {
             </div>
         `);
 
+        // Add event listener to button inside popup (after popup opens)
         if (site.active) {
-            marker.on('click', () => showSiteDetails(site.id));
+            marker.on('popupopen', () => {
+                const button = document.getElementById(`view-analysis-${site.id}`);
+                if (button) {
+                    button.addEventListener('click', () => showSiteDetails(site.id));
+                }
+            });
         }
 
         marker.addTo(overviewMap);
@@ -169,6 +175,21 @@ function loadSiteContent(site) {
             if (typeof getPortFairyHTML === 'function') {
                 const html = getPortFairyHTML(site);
                 document.getElementById('site-details').innerHTML = html;
+
+                // Add back button event listener
+                const backButton = document.getElementById('back-to-home');
+                if (backButton) {
+                    backButton.addEventListener('click', showOverview);
+                    // Add hover effect
+                    backButton.addEventListener('mouseenter', function() {
+                        this.style.background = 'var(--primary)';
+                        this.style.color = 'var(--dark-bg)';
+                    });
+                    backButton.addEventListener('mouseleave', function() {
+                        this.style.background = 'var(--card-bg)';
+                        this.style.color = 'var(--primary)';
+                    });
+                }
 
                 // Initialize detail map and charts after DOM update
                 setTimeout(() => {

@@ -234,6 +234,81 @@
                     <p><strong>Scalable Framework:</strong> Built on the Victorian Coastal Monitoring Program infrastructure, CoastWatch Victoria demonstrates how systematic monitoring and analytics can be deployed statewide, creating a comprehensive picture of coastal change across diverse settings from embayed beaches to open coastlines.</p>
                 </div>
                 
+                <h3>Our Methodology</h3>
+                <div style="background: var(--darker-bg); padding: 2rem; border-radius: 8px; border: 1px solid var(--border); margin: 2rem 0;">
+                    <svg viewBox="0 0 800 300" style="width: 100%; height: auto;">
+                        <!-- Background -->
+                        <defs>
+                            <linearGradient id="flowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Step 1: UAV Survey -->
+                        <rect x="20" y="80" width="140" height="140" rx="8" fill="#131829" stroke="#00d4ff" stroke-width="2"/>
+                        <text x="90" y="110" text-anchor="middle" fill="#00d4ff" font-size="14" font-weight="bold">1. UAV Survey</text>
+                        <text x="90" y="135" text-anchor="middle" fill="#9ca3af" font-size="11">Drone photogrammetry</text>
+                        <text x="90" y="155" text-anchor="middle" fill="#9ca3af" font-size="11">High-resolution</text>
+                        <text x="90" y="175" text-anchor="middle" fill="#9ca3af" font-size="11">imagery capture</text>
+                        <circle cx="90" cy="195" r="15" fill="#00d4ff" opacity="0.2"/>
+                        <text x="90" y="200" text-anchor="middle" fill="#00d4ff" font-size="20">📷</text>
+
+                        <!-- Arrow 1 -->
+                        <path d="M 160 150 L 200 150" stroke="url(#flowGrad)" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#7c3aed" />
+                            </marker>
+                        </defs>
+
+                        <!-- Step 2: Wave Monitoring -->
+                        <rect x="200" y="80" width="140" height="140" rx="8" fill="#131829" stroke="#00d4ff" stroke-width="2"/>
+                        <text x="270" y="110" text-anchor="middle" fill="#00d4ff" font-size="14" font-weight="bold">2. Wave Data</text>
+                        <text x="270" y="135" text-anchor="middle" fill="#9ca3af" font-size="11">Offshore buoys</text>
+                        <text x="270" y="155" text-anchor="middle" fill="#9ca3af" font-size="11">Continuous</text>
+                        <text x="270" y="175" text-anchor="middle" fill="#9ca3af" font-size="11">monitoring</text>
+                        <circle cx="270" cy="195" r="15" fill="#00d4ff" opacity="0.2"/>
+                        <text x="270" y="200" text-anchor="middle" fill="#00d4ff" font-size="20">🌊</text>
+
+                        <!-- Arrow 2 -->
+                        <path d="M 340 150 L 380 150" stroke="url(#flowGrad)" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+                        <!-- Step 3: Data Processing -->
+                        <rect x="380" y="80" width="140" height="140" rx="8" fill="#131829" stroke="#7c3aed" stroke-width="2"/>
+                        <text x="450" y="110" text-anchor="middle" fill="#7c3aed" font-size="14" font-weight="bold">3. Analysis</text>
+                        <text x="450" y="135" text-anchor="middle" fill="#9ca3af" font-size="11">Elevation change</text>
+                        <text x="450" y="155" text-anchor="middle" fill="#9ca3af" font-size="11">Wave correlation</text>
+                        <text x="450" y="175" text-anchor="middle" fill="#9ca3af" font-size="11">Statistical modeling</text>
+                        <circle cx="450" cy="195" r="15" fill="#7c3aed" opacity="0.2"/>
+                        <text x="450" y="200" text-anchor="middle" fill="#7c3aed" font-size="20">📊</text>
+
+                        <!-- Arrow 3 -->
+                        <path d="M 520 150 L 560 150" stroke="url(#flowGrad)" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+
+                        <!-- Step 4: Insights -->
+                        <rect x="560" y="80" width="140" height="140" rx="8" fill="#131829" stroke="#7c3aed" stroke-width="2"/>
+                        <text x="630" y="110" text-anchor="middle" fill="#7c3aed" font-size="14" font-weight="bold">4. Insights</text>
+                        <text x="630" y="135" text-anchor="middle" fill="#9ca3af" font-size="11">Interactive maps</text>
+                        <text x="630" y="155" text-anchor="middle" fill="#9ca3af" font-size="11">Time series charts</text>
+                        <text x="630" y="175" text-anchor="middle" fill="#9ca3af" font-size="11">Vulnerability metrics</text>
+                        <circle cx="630" cy="195" r="15" fill="#7c3aed" opacity="0.2"/>
+                        <text x="630" y="200" text-anchor="middle" fill="#7c3aed" font-size="20">💡</text>
+
+                        <!-- Timeline -->
+                        <text x="400" y="30" text-anchor="middle" fill="#00d4ff" font-size="12" font-weight="bold">Continuous Monitoring Cycle</text>
+                        <path d="M 90 50 L 630 50" stroke="#00d4ff" stroke-width="1" stroke-dasharray="5,5" opacity="0.5"/>
+                        <text x="90" y="270" text-anchor="middle" fill="#9ca3af" font-size="10">Bi-monthly</text>
+                        <text x="270" y="270" text-anchor="middle" fill="#9ca3af" font-size="10">Real-time</text>
+                        <text x="450" y="270" text-anchor="middle" fill="#9ca3af" font-size="10">Processing</text>
+                        <text x="630" y="270" text-anchor="middle" fill="#9ca3af" font-size="10">Platform</text>
+                    </svg>
+
+                    <p style="color: var(--text-secondary); text-align: center; margin-top: 1.5rem; font-size: 0.95rem;">
+                        Our integrated approach combines UAV surveys with wave monitoring to understand the relationship between ocean forcing and coastal change
+                    </p>
+                </div>
+
                 <h3>The Victorian Coastal Monitoring Program</h3>
                 <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem;">
                     The <strong><a href="https://www.marineandcoasts.vic.gov.au/marine-and-coastal-knowledge/victorian-coastal-monitoring-program" target="_blank" style="color: var(--primary);">Victorian Coastal Monitoring Program (VCMP)</a></strong> was established in 2017 with three core objectives:
@@ -250,11 +325,44 @@
                     A critical goal of the VCMP is to aggregate and integrate data from the local to statewide scale, to aid decision-making at local and regional levels. The VCMP is now a major field monitoring and knowledge management program that provides coastal managers and communities with information on coastal processes and hazards.
                 </p>
             </section>
+
+            <section>
+                <h2>Research & Resources</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Key publications and resources about coastal change in Victoria and coastal monitoring techniques.
+                </p>
+
+                <div style="display: grid; gap: 1.5rem;">
+                    <div style="background: var(--darker-bg); border-left: 4px solid var(--primary); padding: 1.5rem; border-radius: 6px;">
+                        <h4 style="color: var(--primary); margin-top: 0; margin-bottom: 0.5rem; font-size: 1.1rem;">Victorian Coastal Monitoring Program</h4>
+                        <p style="color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 0.9rem;">Official VCMP information and statewide monitoring framework</p>
+                        <a href="https://www.marineandcoasts.vic.gov.au/marine-and-coastal-knowledge/victorian-coastal-monitoring-program" target="_blank" style="color: var(--primary); text-decoration: none; font-size: 0.9rem;">Visit VCMP Portal →</a>
+                    </div>
+
+                    <div style="background: var(--darker-bg); border-left: 4px solid var(--secondary); padding: 1.5rem; border-radius: 6px;">
+                        <h4 style="color: var(--secondary); margin-top: 0; margin-bottom: 0.5rem; font-size: 1.1rem;">AusWaves - Victorian Wave Network</h4>
+                        <p style="color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 0.9rem;">Real-time wave data from offshore monitoring buoys across Victoria</p>
+                        <a href="https://auswaves.org/vic-waves/" target="_blank" style="color: var(--secondary); text-decoration: none; font-size: 0.9rem;">View Wave Data →</a>
+                    </div>
+
+                    <div style="background: var(--darker-bg); border-left: 4px solid var(--primary); padding: 1.5rem; border-radius: 6px;">
+                        <h4 style="color: var(--primary); margin-top: 0; margin-bottom: 0.5rem; font-size: 1.1rem;">Climate Change and Victoria's Coast</h4>
+                        <p style="color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 0.9rem;">Information on sea level rise, storm impacts, and coastal adaptation strategies</p>
+                        <a href="https://www.climatechange.vic.gov.au/" target="_blank" style="color: var(--primary); text-decoration: none; font-size: 0.9rem;">Learn More →</a>
+                    </div>
+
+                    <div style="background: var(--darker-bg); border-left: 4px solid var(--secondary); padding: 1.5rem; border-radius: 6px;">
+                        <h4 style="color: var(--secondary); margin-top: 0; margin-bottom: 0.5rem; font-size: 1.1rem;">Coastal Erosion Research</h4>
+                        <p style="color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 0.9rem;">Academic research on beach morphodynamics and coastal processes</p>
+                        <a href="https://scholar.google.com/scholar?q=victorian+coastal+erosion" target="_blank" style="color: var(--secondary); text-decoration: none; font-size: 0.9rem;">Browse Research →</a>
+                    </div>
+                </div>
+            </section>
             
             <section>
                 <h2>Monitoring Sites Across Victoria</h2>
                 <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                    Click on a site marker to view detailed coastal change analysis. Active analysis sites show comprehensive data.
+                    Click on a site marker to view site information. For sites with full analysis available, click "View Full Analysis" button to explore comprehensive data.
                 </p>
                 <div id="overview-map" style="height: 600px; border-radius: 8px; border: 1px solid var(--border);"></div>
                 
