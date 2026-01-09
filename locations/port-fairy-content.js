@@ -8,6 +8,11 @@
  */
 function getPortFairyHTML(site) {
     return `
+        <div style="margin-bottom: 1rem;">
+            <button id="back-to-home" style="background: var(--card-bg); color: var(--primary); border: 2px solid var(--primary); padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.95rem; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s;">
+                <span style="font-size: 1.2rem;">←</span> Back to Home
+            </button>
+        </div>
         <section>
             <h2>${site.name} | Coastal Change Analysis</h2>
 
